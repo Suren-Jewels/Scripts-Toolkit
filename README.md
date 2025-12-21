@@ -1,34 +1,13 @@
 # 🧰 Scripts Toolkit  
-**Automation • SRE Utilities • Cross-Platform Engineering • Troubleshooting Frameworks**
+**Automation • SRE Utilities • Diagnostics • Networking • Identity • Cloud**
 
 ## 📌 Overview
 
-The **Scripts Toolkit** is a curated collection of automation utilities, troubleshooting helpers, and cross-platform scripts built to support Cloud, SRE, Security, and Infrastructure operations.
+The **Scripts Toolkit** is a curated, production-ready collection of automation utilities and troubleshooting frameworks used across Cloud, SRE, Security, and Infrastructure environments.
 
-These scripts were developed to streamline repetitive tasks, accelerate diagnostics, and enforce consistent engineering workflows across Linux, Windows, and hybrid environments.
+This toolkit reflects real-world engineering patterns designed to improve reliability, accelerate diagnostics, and standardize operational workflows across Linux, Windows, and hybrid systems.
 
-This repository represents practical, real-world engineering — the kind of automation that keeps systems stable, predictable, and efficient.
-
----
-
-## 🎯 Purpose & Scope
-
-- Automate repetitive operational tasks
-- Standardize troubleshooting workflows
-- Improve reliability and reduce manual effort
-- Provide reusable building blocks for Cloud/SRE teams
-- Support Linux, Windows, and cross-platform environments
-- Serve as a personal engineering toolkit for rapid problem-solving
-
----
-
-## 🛠️ Technologies & Languages
-
-- **Python** — Automation, parsing, API calls, data processing
-- **PowerShell** — Windows automation, system diagnostics, identity workflows
-- **Bash** — Linux automation, service checks, log parsing
-- **Configuration** — YAML/JSON templates
-- **CLI Tools** — Networking, system monitoring, package management
+The structure below represents a **clean, senior-level SRE layout**, organized by engineering function rather than programming language.
 
 ---
 
@@ -36,25 +15,69 @@ This repository represents practical, real-world engineering — the kind of aut
 ```
 Scripts-Toolkit/
 │
-├── python/
+├── automation/
+│   ├── deploy_app.sh
+│   ├── cleanup_temp.ps1
+│   ├── restart_services.py
+│   └── schedule_tasks.sh
+│
+├── diagnostics/
+│   ├── system_health_check.py
+│   ├── get_system_info.ps1
 │   ├── log_parser.py
-│   ├── api_automation.py
-│   └── system_health_check.py
+│   └── service_status.sh
 │
-├── powershell/
-│   ├── Get-SystemHealth.ps1
-│   ├── Collect-Logs.ps1
-│   └── Optimize-Network.ps1
+├── networking/
+│   ├── network_diag.sh
+│   ├── test_connectivity.ps1
+│   ├── dns_lookup.py
+│   └── trace_route.sh
 │
-├── bash/
-│   ├── service_check.sh
-│   ├── disk_cleanup.sh
-│   └── network_diag.sh
+├── identity/
+│   ├── yubikey_status.ps1
+│   ├── mfa_test.py
+│   └── session_audit.sh
 │
-└── templates/
-    ├── config.json
-    └── workflow.yaml
+├── cloud/
+│   ├── aws_resource_check.py
+│   ├── azure_vm_status.ps1
+│   └── gcp_health_check.sh
+│
+├── templates/
+│   ├── config.json
+│   ├── workflow.yaml
+│   └── log_format.txt
+│
+└── utils/
+    ├── common_functions.py
+    ├── helpers.ps1
+    └── env_setup.sh
 ```
+
+✅ **Clean, modular, and enterprise-grade**  
+✅ **Organized by engineering domain** (not language)  
+✅ **Recruiter-friendly and SRE-aligned**
+
+---
+
+## 🎯 Purpose & Scope
+
+- Automate repetitive operational tasks
+- Standardize troubleshooting workflows
+- Provide reusable building blocks for Cloud/SRE teams
+- Support Linux, Windows, and hybrid environments
+- Accelerate diagnostics and reduce MTTR
+- Serve as a personal engineering toolkit for rapid problem-solving
+
+---
+
+## 🛠️ Technologies & Languages
+
+- **Python** — Automation, parsing, API calls, data processing
+- **PowerShell** — Windows automation, identity workflows, diagnostics
+- **Bash** — Linux automation, service checks, network tools
+- **YAML/JSON** — Configuration templates
+- **CLI Tools** — Networking, system monitoring, package management
 
 ---
 
