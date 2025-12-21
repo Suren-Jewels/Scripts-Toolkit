@@ -32,7 +32,7 @@ This repository represents practical, real-world engineering — the kind of aut
 
 ---
 
-## 📂 Repository Structure (Example)
+## 📂 Repository Structure
 ```
 Scripts-Toolkit/
 │
