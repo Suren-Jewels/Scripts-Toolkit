@@ -1,4 +1,4 @@
-# 🟦 AWS Cloud Automation Toolkit  
+# 🌩️ AWS Cloud Automation Toolkit  
 **Scripts-Toolkit/cloud-automation/aws**
 
 The AWS Cloud Automation Toolkit provides a complete, capability‑centric collection of Bash scripts for automating Amazon Web Services operations. Each script is atomic, single‑purpose, and production‑ready. The structure mirrors your Azure and GCP automation suites to maintain symmetry, clarity, and professional presentation.
