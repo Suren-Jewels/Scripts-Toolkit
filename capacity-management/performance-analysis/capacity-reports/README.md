@@ -6,7 +6,7 @@
 ![Compliance](https://img.shields.io/badge/Enterprise-Ready-009688?style=for-the-badge)
 
 A capability‑centric analytics suite for **compute, storage, and network capacity reporting** across **GCP, Azure, and AWS**.  
-Designed for **atomic**, **multi‑cloud**, **enterprise‑grade** performance insights with **JSON‑first outputs** for dashboards, forecasting engines, and leadership reporting.
+Designed for **atomic**, **multi‑cloud**, **enterprise‑grade** performance insights with JSON‑first outputs for dashboards, forecasting engines, and leadership reporting.
 
 ---
 
@@ -52,8 +52,10 @@ Designed for **atomic**, **multi‑cloud**, **enterprise‑grade** performance i
 ## 📊 Org‑Wide Rollup Capabilities (`org-wide-capacity-rollup/`)
 
 - [`multi-cloud-capacity-rollup.sh`](org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh) — Unified compute/storage/network JSON rollup  
-- [`capacity-trend-analysis.py`](org-wide-capacity-rollup/capacity-trend-analysis.py) — Historical trend analysis + forecasting  
+- [`capacity-efficiency-score.py`](org-wide-capacity-rollup/capacity-efficiency-score.py) — Weighted capacity efficiency scoring  
 - [`capacity-alert-thresholds.sh`](org-wide-capacity-rollup/capacity-alert-thresholds.sh) — Threshold validation + alert JSON  
+- [`capacity-trend-analysis.py`](org-wide-capacity-rollup/capacity-trend-analysis.py) — Historical trend analysis + anomaly detection  
+- [`capacity-trend-forecast.py`](org-wide-capacity-rollup/capacity-trend-forecast.py) — Linear forecasting engine for future capacity usage  
 
 ---
 
@@ -66,6 +68,7 @@ Common variables used across scripts:
 - `OUTPUT_DIR` — Optional directory for storing JSON reports  
 - `THRESHOLDS_FILE` — Threshold definitions for alerting  
 - `ROLLUP_INPUT_DIR` — Directory containing per‑domain JSON reports  
+- `FORECAST_INTERVALS` — Number of future intervals to forecast (trend‑forecast script)  
 
 Each script documents its own required variables.
 
