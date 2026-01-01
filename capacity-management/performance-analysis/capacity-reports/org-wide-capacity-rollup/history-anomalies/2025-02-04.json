@@ -1,0 +1,5 @@
+{
+  "compute_capacity": { "used_cores": 660, "total_cores": 1000, "used_ram_gb": 2520, "total_ram_gb": 4000 },
+  "storage_capacity": { "used_gb": 12000, "total_gb": 20000 },
+  "network_capacity": { "used_bandwidth_gbps": 31, "total_bandwidth_gbps": 40 }
+}
