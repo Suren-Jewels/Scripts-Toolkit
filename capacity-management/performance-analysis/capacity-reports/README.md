@@ -6,7 +6,7 @@
 ![Compliance](https://img.shields.io/badge/Enterprise-Ready-009688?style=for-the-badge)
 
 A capability‑centric analytics suite for **compute, storage, and network capacity reporting** across **GCP, Azure, and AWS**.  
-Designed for **atomic**, **multi‑cloud**, **enterprise‑grade** performance insights with JSON‑first outputs for dashboards, forecasting engines, and leadership reporting.
+Designed for **atomic**, **multi‑cloud**, **enterprise‑grade** performance insights with **JSON‑first outputs** for dashboards, forecasting engines, and leadership reporting.
 
 ---
 
@@ -85,5 +85,7 @@ Each script documents its own required variables.
 
 ## ▶️ Usage
 
-Each script runs independently:
+Each script runs independently and emits JSON suitable for dashboards, automation pipelines, and forecasting engines.
+
+Examples:
 
