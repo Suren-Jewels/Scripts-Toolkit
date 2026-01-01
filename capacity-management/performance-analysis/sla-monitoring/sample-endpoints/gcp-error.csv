@@ -1,0 +1,4 @@
+service,region,endpoint
+compute,us-central1,https://compute.googleapis.com/compute/v1/projects
+storage,us-east1,https://storage.googleapis.com/storage/v1/b
+cloudrun,us-west1,https://run.googleapis.com/apis/serving.knative.dev/v1
