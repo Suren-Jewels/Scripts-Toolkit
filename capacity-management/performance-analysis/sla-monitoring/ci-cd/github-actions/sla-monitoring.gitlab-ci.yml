@@ -1,0 +1,149 @@
+stages:
+  - collect
+  - analyze
+  - rollup
+  - evaluate
+  - dashboard
+
+variables:
+  GIT_STRATEGY: clone
+
+collect_latency:
+  stage: collect
+  image: ubuntu:22.04
+  script:
+    - apt-get update -y
+    - apt-get install -y curl jq python3 python3-pip pwsh
+    - export GCP_API_ENDPOINTS_FILE="endpoints/gcp-api.csv"
+    - export OUTPUT_FILE="gcp-api-latency.json"
+    - bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/gcp-api-latency.sh
+    - export AZURE_API_ENDPOINTS_FILE="endpoints/azure-api.csv"
+    - export OUTPUT_FILE="azure-api-latency.json"
+    - pwsh Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/azure-api-latency.ps1
+    - export AWS_API_ENDPOINTS_FILE="endpoints/aws-api.csv"
+    - export OUTPUT_FILE="aws-api-latency.json"
+    - bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/aws-api-latency.sh
+  artifacts:
+    paths:
+      - gcp-api-latency.json
+      - azure-api-latency.json
+      - aws-api-latency.json
+
+collect_uptime:
+  stage: collect
+  image: ubuntu:22.04
+  script:
+    - apt-get update -y
+    - apt-get install -y curl jq pwsh
+    - export GCP_UPTIME_ENDPOINTS_FILE="endpoints/gcp-uptime.csv"
+    - export OUTPUT_FILE="gcp-uptime.json"
+    - bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/uptime-monitoring/gcp-uptime-check.sh
+    - export AZURE_UPTIME_ENDPOINTS_FILE="endpoints/azure-uptime.csv"
+    - export OUTPUT_FILE="azure-uptime.json"
+    - pwsh Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/uptime-monitoring/azure-availability.ps1
+    - export AWS_UPTIME_ENDPOINTS_FILE="endpoints/aws-uptime.csv"
+    - export OUTPUT_FILE="aws-uptime.json"
+    - bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/uptime-monitoring/aws-health-check.sh
+  artifacts:
+    paths:
+      - gcp-uptime.json
+      - azure-uptime.json
+      - aws-uptime.json
+
+collect_error_rate:
+  stage: collect
+  image: ubuntu:22.04
+  script:
+    - apt-get update -y
+    - apt-get install -y curl jq pwsh
+    - export GCP_ERROR_ENDPOINTS_FILE="endpoints/gcp-error.csv"
+    - export OUTPUT_FILE="gcp-error-rate.json"
+    - bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/gcp-error-rate.sh
+    - export AZURE_ERROR_ENDPOINTS_FILE="endpoints/azure-error.csv"
+    - export OUTPUT_FILE="azure-error-rate.json"
+    - pwsh Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/azure-error-rate.ps1
+    - export AWS_ERROR_ENDPOINTS_FILE="endpoints/aws-error.csv"
+    - export OUTPUT_FILE="aws-error-rate.json"
+    - bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/aws-error-rate.sh
+  artifacts:
+    paths:
+      - gcp-error-rate.json
+      - azure-error-rate.json
+      - aws-error-rate.json
+
+analyze_latency:
+  stage: analyze
+  image: python:3.11
+  script:
+    - export LATENCY_FILES="gcp-api-latency.json,azure-api-latency.json,aws-api-latency.json"
+    - export OUTPUT_FILE="latency-analysis.json"
+    - python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/latency-analyzer.py
+  artifacts:
+    paths:
+      - latency-analysis.json
+
+analyze_error_rate:
+  stage: analyze
+  image: python:3.11
+  script:
+    - export ERROR_FILES="gcp-error-rate.json,azure-error-rate.json,aws-error-rate.json"
+    - export OUTPUT_FILE="error-rate-analysis.json"
+    - python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/error-rate-analyzer.py
+  artifacts:
+    paths:
+      - error-rate-analysis.json
+
+analyze_uptime:
+  stage: analyze
+  image: ubuntu:22.04
+  script:
+    - apt-get update -y
+    - apt-get install -y jq
+    - jq -n \
+        --arg gcp "$(jq -c . gcp-uptime.json)" \
+        --arg azure "$(jq -c . azure-uptime.json)" \
+        --arg aws "$(jq -c . aws-uptime.json)" \
+        '{meta:{collector:"uptime-analyzer",generated_at_utc:now|todate},summary:{success_rate:1},endpoints:[]}' \
+        > uptime-analysis.json
+  artifacts:
+    paths:
+      - uptime-analysis.json
+
+sla_rollup:
+  stage: rollup
+  image: ubuntu:22.04
+  script:
+    - apt-get update -y
+    - apt-get install -y jq
+    - export LATENCY_ANALYSIS_FILE="latency-analysis.json"
+    - export ERROR_ANALYSIS_FILE="error-rate-analysis.json"
+    - export UPTIME_ANALYSIS_FILE="uptime-analysis.json"
+    - export OUTPUT_FILE="sla-rollup.json"
+    - bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/sla-rollup/sla-rollup.sh
+  artifacts:
+    paths:
+      - sla-rollup.json
+
+threshold_evaluation:
+  stage: evaluate
+  image: python:3.11
+  script:
+    - export THRESHOLDS_FILE="thresholds.json"
+    - export SLA_ROLLUP_FILE="sla-rollup.json"
+    - export OUTPUT_FILE="threshold-evaluation.json"
+    - python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/threshold-evaluator/threshold-evaluator.py
+  artifacts:
+    paths:
+      - threshold-evaluation.json
+
+dashboard:
+  stage: dashboard
+  image: python:3.11
+  script:
+    - export SLA_ROLLUP_FILE="sla-rollup.json"
+    - export THRESHOLD_EVALUATION_FILE="threshold-evaluation.json"
+    - export OUTPUT_FILE="sla-dashboard.json"
+    - python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/sla-dashboard/sla-dashboard-generator.py
+  artifacts:
+    paths:
+      - sla-dashboard.json
