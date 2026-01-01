@@ -1,0 +1,4 @@
+service,region,endpoint
+compute,eastus,https://management.azure.com/subscriptions?api-version=2020-01-01
+storage,westus,https://management.azure.com/providers/Microsoft.Storage?api-version=2021-04-01
+appservice,centralus,https://management.azure.com/providers/Microsoft.Web?api-version=2021-02-01
