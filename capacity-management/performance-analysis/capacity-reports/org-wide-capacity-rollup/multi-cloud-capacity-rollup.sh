@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# ------------------------------------------------------------------------------
+# Capability: Multi‑Cloud Capacity Rollup
+# Purpose   : Aggregate compute, storage, and network capacity reports from
+#             GCP, Azure, and AWS into a unified org‑wide capacity snapshot.
+# Output    : JSON (capacity totals + per‑domain breakdown)
+# Author    : Suren Jewels (FixWare) — Where broken becomes better.
+# ------------------------------------------------------------------------------
+
+set -euo pipefail
+
+# ----------------------------- VALIDATION -------------------------------------
+if ! command -v jq >/dev/null 2>&1; then
+  echo "ERROR: jq not found." >&2
+  exit 1
+fi
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <input_directory>" >&2
+  exit 1
+fi
+
+INPUT_DIR="$1"
+
+if [ ! -d "$INPUT_DIR" ]; then
+  echo "ERROR: Input directory does not exist: $INPUT_DIR" >&2
+  exit 1
+fi
+
+# ----------------------------- FUNCTIONS --------------------------------------
+collect_reports() {
+  local dir="$1"
+  local files=("$dir"/*.json)
+
+  for f in "${files[@]}"; do
+    if [ -f "$f" ]; then
+      cat "$f"
+    fi
+  done
+}
+
+# ----------------------------- MAIN LOGIC -------------------------------------
+RAW=$(collect_reports "$INPUT_DIR")
+
+ROLLUP=$(printf '%s\n' "$RAW" | jq -s '
+{
+  generated_at: now,
+
+  compute_capacity: (
+    map(select(.compute_capacity)) | add // {}
+  ),
+
+  storage_capacity: (
+    map(select(.storage_capacity)) | add // {}
+  ),
+
+  network_capacity: (
+    map(select(.network_capacity)) | add // {}
+  )
+}
+')
+
+echo "$ROLLUP"
