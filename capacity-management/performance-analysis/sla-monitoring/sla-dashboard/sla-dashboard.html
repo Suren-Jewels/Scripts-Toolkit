@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SLA Dashboard</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 40px; }
+  h1 { color: #333; }
+  .section { margin-bottom: 30px; }
+  .good { color: green; font-weight: bold; }
+  .bad { color: red; font-weight: bold; }
+  pre { background: #f4f4f4; padding: 15px; border-radius: 5px; }
+</style>
+</head>
+<body>
+
+<h1>SLA Dashboard</h1>
+
+<div class="section">
+  <h2>Overall SLA Score</h2>
+  <div id="slaScore">Loading...</div>
+</div>
+
+<div class="section">
+  <h2>Threshold Evaluation</h2>
+  <div id="thresholdStatus">Loading...</div>
+</div>
+
+<div class="section">
+  <h2>Raw Data</h2>
+  <pre id="rawData">Loading...</pre>
+</div>
+
+<script>
+async function loadDashboard() {
+  const response = await fetch("sla-dashboard.json");
+  const data = await response.json();
+
+  const score = data.dashboard.overall_sla_score;
+  const meets = data.dashboard.meets_all_thresholds;
+
+  document.getElementById("slaScore").innerHTML =
+    `<span class="${meets ? 'good' : 'bad'}">${score}</span>`;
+
+  document.getElementById("thresholdStatus").innerHTML =
+    meets ? "<span class='good'>All thresholds met</span>"
+          : "<span class='bad'>Thresholds NOT met</span>";
+
+  document.getElementById("rawData").textContent =
+    JSON.stringify(data, null, 2);
+}
+
+loadDashboard();
+</script>
+
+</body>
+</html>
