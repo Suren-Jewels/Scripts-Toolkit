@@ -1,0 +1,4 @@
+service,region,endpoint
+ec2,us-east-1,https://ec2.us-east-1.amazonaws.com
+s3,us-west-2,https://s3.us-west-2.amazonaws.com
+lambda,us-east-2,https://lambda.us-east-2.amazonaws.com/2015-03-31/functions
