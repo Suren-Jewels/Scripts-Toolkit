@@ -1,0 +1,12 @@
+{
+  "compute": {
+    "used_cores": 0.80,
+    "used_ram_gb": 0.85
+  },
+  "storage": {
+    "used_gb": 0.90
+  },
+  "network": {
+    "used_bandwidth_gbps": 0.75
+  }
+}
