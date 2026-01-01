@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# sla-rollup.sh
+# multi-cloud-sla-rollup.sh
+# Aggregates latency-analysis.json, error-rate-analysis.json, uptime-analysis.json
+# into a unified multi-cloud SLA rollup.
 
 LATENCY_ANALYSIS_FILE="${LATENCY_ANALYSIS_FILE:-}"
 ERROR_ANALYSIS_FILE="${ERROR_ANALYSIS_FILE:-}"
 UPTIME_ANALYSIS_FILE="${UPTIME_ANALYSIS_FILE:-}"
-OUTPUT_FILE="${OUTPUT_FILE:-sla-rollup.json}"
+OUTPUT_FILE="${OUTPUT_FILE:-multi-cloud-sla-rollup.json}"
 
 if [[ -z "${LATENCY_ANALYSIS_FILE}" ]]; then
   echo "ERROR: LATENCY_ANALYSIS_FILE is required." >&2
@@ -34,24 +36,17 @@ timestamp_utc() {
   date -u +"%Y-%m-%dT%H:%M:%SZ"
 }
 
-latency_json="$(cat "${LATENCY_ANALYSIS_FILE}")"
-error_json="$(cat "${ERROR_ANALYSIS_FILE}")"
-uptime_json="$(cat "${UPTIME_ANALYSIS_FILE}")"
+latency_p95="$(jq -r '.summary.p95_latency_ms' "${LATENCY_ANALYSIS_FILE}")"
+error_rate="$(jq -r '.summary.error_rate' "${ERROR_ANALYSIS_FILE}")"
+uptime_rate="$(jq -r '.summary.success_rate' "${UPTIME_ANALYSIS_FILE}")"
 
-latency_rate="$(echo "${latency_json}" | jq -r '.summary.p95_latency_ms')"
-error_rate="$(echo "${error_json}" | jq -r '.summary.error_rate')"
-uptime_rate="$(echo "${uptime_json}" | jq -r '.summary.success_rate')"
-
-sla_score="null"
-if [[ "${latency_rate}" != "null" ]] && [[ "${error_rate}" != "null" ]] && [[ "${uptime_rate}" != "null" ]]; then
-  sla_score=$(awk -v l="${latency_rate}" -v e="${error_rate}" -v u="${uptime_rate}" \
-    'BEGIN { printf "%.4f", (u * 0.5) + ((1 - e) * 0.3) + ((1 / (1 + l)) * 0.2) }')
-fi
+sla_score=$(awk -v l="${latency_p95}" -v e="${error_rate}" -v u="${uptime_rate}" \
+  'BEGIN { printf "%.4f", (u * 0.5) + ((1 - e) * 0.3) + ((1 / (1 + l)) * 0.2) }')
 
 cat <<EOF > "${OUTPUT_FILE}"
 {
   "meta": {
-    "collector": "sla-rollup.sh",
+    "collector": "multi-cloud-sla-rollup.sh",
     "generated_at_utc": "$(timestamp_utc)"
   },
   "inputs": {
@@ -60,7 +55,7 @@ cat <<EOF > "${OUTPUT_FILE}"
     "uptime_analysis_file": "${UPTIME_ANALYSIS_FILE}"
   },
   "sla": {
-    "p95_latency_ms": ${latency_rate},
+    "p95_latency_ms": ${latency_p95},
     "error_rate": ${error_rate},
     "uptime_rate": ${uptime_rate},
     "sla_score": ${sla_score}
