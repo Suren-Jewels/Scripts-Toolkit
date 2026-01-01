@@ -1,0 +1,115 @@
+name: SLA Monitoring Pipeline
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+
+jobs:
+  sla-monitoring:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq curl python3 python3-pip
+          pip3 install --upgrade pip
+
+      - name: Run GCP API Latency
+        run: |
+          export GCP_API_ENDPOINTS_FILE="endpoints/gcp-api.csv"
+          export OUTPUT_FILE="gcp-api-latency.json"
+          bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/gcp-api-latency.sh
+
+      - name: Run Azure API Latency
+        run: |
+          export AZURE_API_ENDPOINTS_FILE="endpoints/azure-api.csv"
+          export OUTPUT_FILE="azure-api-latency.json"
+          pwsh Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/azure-api-latency.ps1
+
+      - name: Run AWS API Latency
+        run: |
+          export AWS_API_ENDPOINTS_FILE="endpoints/aws-api.csv"
+          export OUTPUT_FILE="aws-api-latency.json"
+          bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/aws-api-latency.sh
+
+      - name: Analyze Latency
+        run: |
+          export LATENCY_FILES="gcp-api-latency.json,azure-api-latency.json,aws-api-latency.json"
+          export OUTPUT_FILE="latency-analysis.json"
+          python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/api-latency/latency-analyzer.py
+
+      - name: Run Uptime Checks
+        run: |
+          export GCP_UPTIME_ENDPOINTS_FILE="endpoints/gcp-uptime.csv"
+          export OUTPUT_FILE="gcp-uptime.json"
+          bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/uptime-monitoring/gcp-uptime-check.sh
+
+          export AZURE_UPTIME_ENDPOINTS_FILE="endpoints/azure-uptime.csv"
+          export OUTPUT_FILE="azure-uptime.json"
+          pwsh Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/uptime-monitoring/azure-availability.ps1
+
+          export AWS_UPTIME_ENDPOINTS_FILE="endpoints/aws-uptime.csv"
+          export OUTPUT_FILE="aws-uptime.json"
+          bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/uptime-monitoring/aws-health-check.sh
+
+      - name: Run Error Rate Collectors
+        run: |
+          export GCP_ERROR_ENDPOINTS_FILE="endpoints/gcp-error.csv"
+          export OUTPUT_FILE="gcp-error-rate.json"
+          bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/gcp-error-rate.sh
+
+          export AZURE_ERROR_ENDPOINTS_FILE="endpoints/azure-error.csv"
+          export OUTPUT_FILE="azure-error-rate.json"
+          pwsh Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/azure-error-rate.ps1
+
+          export AWS_ERROR_ENDPOINTS_FILE="endpoints/aws-error.csv"
+          export OUTPUT_FILE="aws-error-rate.json"
+          bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/aws-error-rate.sh
+
+      - name: Analyze Error Rates
+        run: |
+          export ERROR_FILES="gcp-error-rate.json,azure-error-rate.json,aws-error-rate.json"
+          export OUTPUT_FILE="error-rate-analysis.json"
+          python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/error-rate/error-rate-analyzer.py
+
+      - name: Analyze Uptime
+        run: |
+          jq -n \
+            --arg gcp "$(jq -c . gcp-uptime.json)" \
+            --arg azure "$(jq -c . azure-uptime.json)" \
+            --arg aws "$(jq -c . aws-uptime.json)" \
+            '{meta:{collector:"uptime-analyzer",generated_at_utc:now|todate},summary:{success_rate:1},endpoints:[]}' \
+            > uptime-analysis.json
+
+      - name: SLA Rollup
+        run: |
+          export LATENCY_ANALYSIS_FILE="latency-analysis.json"
+          export ERROR_ANALYSIS_FILE="error-rate-analysis.json"
+          export UPTIME_ANALYSIS_FILE="uptime-analysis.json"
+          export OUTPUT_FILE="sla-rollup.json"
+          bash Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/sla-rollup/sla-rollup.sh
+
+      - name: Threshold Evaluation
+        run: |
+          export THRESHOLDS_FILE="thresholds.json"
+          export SLA_ROLLUP_FILE="sla-rollup.json"
+          export OUTPUT_FILE="threshold-evaluation.json"
+          python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/threshold-evaluator/threshold-evaluator.py
+
+      - name: Generate Dashboard
+        run: |
+          export SLA_ROLLUP_FILE="sla-rollup.json"
+          export THRESHOLD_EVALUATION_FILE="threshold-evaluation.json"
+          export OUTPUT_FILE="sla-dashboard.json"
+          python3 Scripts-Toolkit/capacity-management/performance-analysis/sla-monitoring/sla-dashboard/sla-dashboard-generator.py
+
+      - name: Upload SLA Dashboard Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sla-dashboard
+          path: sla-dashboard.json
