@@ -3,8 +3,8 @@ severity-detection/
     ->
 #!/usr/bin/env python3
 """
-Capability: Classify incident severity (SEV1/SEV2/SEV3/None)
-based on event payload metrics.
+Capability: Classify incident severity based on event payload metrics.
+Outputs: CRITICAL / MAJOR / MODERATE / NONE
 """
 
 import json
@@ -23,29 +23,29 @@ error_rate = event.get("error_rate", 0)
 latency = event.get("latency_ms", 0)
 uptime = event.get("uptime", 100)
 
-if event.get("sev1_flag") is True:
-    print("SEV1")
+if event.get("critical_flag") is True:
+    print("CRITICAL")
     sys.exit(0)
 
 if error_rate >= 20 or latency >= 2000 or uptime < 95:
-    print("SEV1")
+    print("CRITICAL")
     sys.exit(0)
 
-if event.get("sev2_flag") is True:
-    print("SEV2")
+if event.get("major_flag") is True:
+    print("MAJOR")
     sys.exit(0)
 
 if error_rate >= 10 or latency >= 1200 or uptime < 97:
-    print("SEV2")
+    print("MAJOR")
     sys.exit(0)
 
-if event.get("sev3_flag") is True:
-    print("SEV3")
+if event.get("moderate_flag") is True:
+    print("MODERATE")
     sys.exit(0)
 
 if error_rate >= 5 or latency >= 800 or uptime < 99:
-    print("SEV3")
+    print("MODERATE")
     sys.exit(0)
 
-print("NO-SEVERITY")
+print("NONE")
 sys.exit(0)
