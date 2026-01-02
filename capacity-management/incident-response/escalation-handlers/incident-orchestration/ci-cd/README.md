@@ -1,4 +1,4 @@
-# ci-cd — Automated Incident Orchestration Pipelines
+# CI/CD — Automated Incident Orchestration Pipelines
 
 <div align="center">
 
