@@ -18,7 +18,7 @@ Designed for **multi‑cloud**, **multi‑signal**, **enterprise‑grade** incid
 | **📞 oncall-routing** | Trigger PagerDuty/OpsGenie/Slack routing paths | Integration handlers, escalation resolvers, notification engines |
 | **🛠️ auto-remediation** | Automated recovery actions (restart, scale, failover) | Service controllers, scaling logic, failover orchestrators |
 | **🧭 incident-orchestration** | Full incident lifecycle orchestration, comms, CI/CD, history | Policy engines, timeline generators, broadcast systems |
-| **🧪 sample-events** | Synthetic event payloads for testing | SEV1-5 scenarios, edge cases, multi-signal events |
+| **🧪 sample-events** | Synthetic event payloads for testing | Critical/Major/Moderate scenarios, edge cases, multi-signal events |
 
 ---
 
@@ -33,9 +33,9 @@ flowchart TD
     end
 
     subgraph SD["🔎 SEVERITY DETECTION"]
-        A1[detect-critical-service-impact.sh<br/>🔴 SEV1 Detector]
-        A2[detect-major-service-degradation.sh<br/>🟠 SEV2 Detector]
-        A3[detect-moderate-service-degradation.sh<br/>🟡 SEV3 Detector]
+        A1[detect-critical-service-impact.sh<br/>🔴 Critical Impact Detector]
+        A2[detect-major-service-degradation.sh<br/>🟠 Major Degradation Detector]
+        A3[detect-moderate-service-degradation.sh<br/>🟡 Moderate Degradation Detector]
         A4[severity-classifier.py<br/>🤖 ML Classifier]
     end
 
@@ -77,16 +77,16 @@ flowchart TD
     end
 
     subgraph SE["🧪 SAMPLE EVENTS"]
-        S1[sev1-event.json<br/>🔴 Critical]
-        S2[sev2-event.json<br/>🟠 Major]
-        S3[sev3-event.json<br/>🟡 Moderate]
+        S1[critical-service-impact-event.json<br/>🔴 Critical]
+        S2[major-degradation-event.json<br/>🟠 Major]
+        S3[moderate-degradation-event.json<br/>🟡 Moderate]
         S4[autoscale-event.json<br/>📈 Scale Trigger]
         S5[failover-event.json<br/>🔀 Failover Scenario]
     end
 
     %% Flow connections
     INPUT --> SD
-    SD -->|SEV1-3 Classification| OR
+    SD -->|Impact Classification| OR
     SD -->|Auto-remediate?| AR
     OR -->|Route & Notify| IO
     AR -->|Execute & Report| IO
@@ -123,7 +123,7 @@ flowchart TD
 <td>
 
 - Multi‑signal evaluation (error rate, latency, uptime, feature flags)
-- **SEV1** (Critical) / **SEV2** (Major) / **SEV3** (Moderate) classification
+- **Critical Service Impact** / **Major Degradation** / **Moderate Degradation** classification
 - Python ML classifier + Bash threshold detectors
 - Deterministic output for downstream routing
 - JSON/YAML event schema validation
@@ -192,13 +192,13 @@ flowchart TD
 
 ### Standalone Severity Detection
 ```bash
-export EVENT_FILE=sample-events/sev1-event.json
+export EVENT_FILE=sample-events/critical-service-impact-event.json
 ./severity-detection/detect-critical-service-impact.sh
 ```
 
 **Output:**
 ```
-🔴 SEVERITY: CRITICAL (SEV1)
+🔴 SEVERITY: CRITICAL SERVICE IMPACT
 📊 Error Rate: 45.2% (threshold: 10%)
 ⏱️  P99 Latency: 8500ms (threshold: 2000ms)
 🎯 Confidence: 98.7%
@@ -207,7 +207,7 @@ export EVENT_FILE=sample-events/sev1-event.json
 ### On-Call Routing Chain
 ```bash
 ./oncall-routing/oncall-resolver.py \
-  --severity SEV1 \
+  --severity critical \
   --service payment-api \
   --region us-east-1
 ```
@@ -215,7 +215,7 @@ export EVENT_FILE=sample-events/sev1-event.json
 ### Full Incident Orchestration
 ```bash
 ./incident-orchestration/incident-orchestrator.sh \
-  --event-file sample-events/sev1-event.json \
+  --event-file sample-events/critical-service-impact-event.json \
   --auto-remediate \
   --broadcast-channels "#incidents,#payments-team"
 ```
@@ -234,10 +234,10 @@ export EVENT_FILE=sample-events/sev1-event.json
 
 | Severity | Error Rate | P99 Latency | Uptime | Response Time | Auto-Remediate |
 |----------|-----------|-------------|--------|---------------|----------------|
-| **🔴 SEV1** (Critical) | > 10% | > 5000ms | < 95% | Immediate | ✅ Yes |
-| **🟠 SEV2** (Major) | 5-10% | 2000-5000ms | 95-98% | < 5 min | ✅ Yes |
-| **🟡 SEV3** (Moderate) | 2-5% | 1000-2000ms | 98-99.5% | < 15 min | ⚠️ Optional |
-| **🟢 SEV4** (Minor) | < 2% | < 1000ms | > 99.5% | < 1 hour | ❌ No |
+| **🔴 Critical Service Impact** | > 10% | > 5000ms | < 95% | Immediate | ✅ Yes |
+| **🟠 Major Service Degradation** | 5-10% | 2000-5000ms | 95-98% | < 5 min | ✅ Yes |
+| **🟡 Moderate Service Degradation** | 2-5% | 1000-2000ms | 98-99.5% | < 15 min | ⚠️ Optional |
+| **🟢 Minor Service Issue** | < 2% | < 1000ms | > 99.5% | < 1 hour | ❌ No |
 
 ---
 
