@@ -1,0 +1,76 @@
+incident-orchestration/ci-cd/gitlab/
+    -> escalation.gitlab-ci.yml
+    ->
+stages:
+  - classify
+  - route
+  - remediate
+  - broadcast
+
+variables:
+  EVENT_FILE: "event.json"
+
+classify_severity:
+  stage: classify
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache jq bc python3 py3-pip
+  script:
+    - chmod +x escalation-handlers/severity-detection/severity-classifier.py
+    - SEVERITY=$(python3 escalation-handlers/severity-detection/severity-classifier.py)
+    - echo "$SEVERITY" > severity.txt
+  artifacts:
+    paths:
+      - severity.txt
+
+route_oncall:
+  stage: route
+  image: alpine:latest
+  dependencies:
+    - classify_severity
+  before_script:
+    - apk add --no-cache jq curl python3 py3-pip
+    - SEVERITY=$(cat severity.txt)
+  script:
+    - if [ "$SEVERITY" != "NONE" ]; then
+        chmod +x escalation-handlers/oncall-routing/pagerduty-trigger.sh;
+        PD_ROUTING_KEY="$PD_ROUTING_KEY" SEVERITY="$SEVERITY" ./escalation-handlers/oncall-routing/pagerduty-trigger.sh;
+      fi
+    - if [ "$SEVERITY" != "NONE" ]; then
+        python3 escalation-handlers/oncall-routing/slack-escalation.py;
+      fi
+  artifacts:
+    paths:
+      - severity.txt
+
+run_remediation:
+  stage: remediate
+  image: alpine:latest
+  dependencies:
+    - route_oncall
+  before_script:
+    - apk add --no-cache jq curl python3 py3-pip bash
+    - SEVERITY=$(cat severity.txt)
+  script:
+    - if [ "$SEVERITY" = "CRITICAL" ] || [ "$SEVERITY" = "MAJOR" ]; then
+        python3 escalation-handlers/auto-remediation/remediation-engine.py;
+      fi
+  artifacts:
+    paths:
+      - severity.txt
+
+broadcast_updates:
+  stage: broadcast
+  image: alpine:latest
+  dependencies:
+    - run_remediation
+  before_script:
+    - apk add --no-cache jq curl python3 py3-pip
+    - SEVERITY=$(cat severity.txt)
+  script:
+    - if [ "$SEVERITY" != "NONE" ]; then
+        python3 escalation-handlers/incident-orchestration/comms/slack-incident-broadcast.py;
+      fi
+    - if [ "$SEVERITY" != "NONE" ]; then
+        python3 escalation-handlers/incident-orchestration/comms/teams-incident-broadcast.py;
+      fi
