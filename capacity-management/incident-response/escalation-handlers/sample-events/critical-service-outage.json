@@ -1,0 +1,20 @@
+incident-orchestration/sample-events/
+    -> critical-service-outage.json
+    ->
+{
+  "service_name": "payments-api",
+  "error_rate": 27.4,
+  "latency_ms": 3100,
+  "uptime": 92.1,
+  "critical_flag": true,
+  "major_flag": false,
+  "moderate_flag": false,
+  "recommended_action": "failover",
+  "primary_region": "us-east1",
+  "secondary_region": "us-west1",
+  "metadata": {
+    "cluster": "prod-a",
+    "node": "node-17",
+    "trace_id": "abc123-critical"
+  }
+}
