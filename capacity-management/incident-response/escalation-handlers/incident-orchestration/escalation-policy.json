@@ -1,0 +1,25 @@
+incident-orchestration/
+    -> escalation-policy.json
+    ->
+{
+  "CRITICAL": {
+    "oncall": "primary-oncall",
+    "remediation": "restart,scale-out,failover",
+    "broadcast": true
+  },
+  "MAJOR": {
+    "oncall": "secondary-oncall",
+    "remediation": "restart,scale-out",
+    "broadcast": true
+  },
+  "MODERATE": {
+    "oncall": "tertiary-oncall",
+    "remediation": "restart",
+    "broadcast": true
+  },
+  "NONE": {
+    "oncall": "none",
+    "remediation": "none",
+    "broadcast": false
+  }
+}
