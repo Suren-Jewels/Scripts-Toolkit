@@ -1,0 +1,64 @@
+incident-orchestration/
+    -> ascii-visualization.txt
+    ->
+INCIDENT ORCHESTRATION PIPELINE (ASCII OVERVIEW)
+===============================================
+
+  +--------------------+
+  |  Incoming Event    |
+  |  (event.json)      |
+  +----------+---------+
+             |
+             v
+  +-----------------------------+
+  |  Severity Detection         |
+  |  severity-classifier.py     |
+  +----------+------------------+
+             |
+             |  SEVERITY = CRITICAL / MAJOR / MODERATE / NONE
+             v
+  +-----------------------------+
+  |  On-Call Routing            |
+  |  oncall-routing/            |
+  |  - pagerduty-trigger.sh     |
+  |  - opsgenie-alert.sh        |
+  |  - slack-escalation.py      |
+  |  - oncall-resolver.py       |
+  +----------+------------------+
+             |
+             v
+  +-----------------------------+
+  |  Auto-Remediation           |
+  |  auto-remediation/          |
+  |  - remediation-engine.py    |
+  |  - restart-service.sh       |
+  |  - scale-out.ps1            |
+  |  - failover-handler.sh      |
+  +----------+------------------+
+             |
+             v
+  +-----------------------------+
+  |  Comms                      |
+  |  incident-orchestration/    |
+  |      comms/                 |
+  |  - slack-incident-broadcast |
+  |  - teams-incident-broadcast |
+  |  - email-notify.sh          |
+  +----------+------------------+
+             |
+             v
+  +-----------------------------+
+  |  History & Anomalies        |
+  |  history/                   |
+  |  - record-incident-history  |
+  |  - list/get-latest/prune    |
+  |  history-anomalies/         |
+  |  - detect-anomaly-trends    |
+  |  - anomaly-score/heatmap    |
+  |  - summarize-anomalies      |
+  +-----------------------------+
+
+Key:
+  - Each box = capability-centric module
+  - Flow is strictly top → bottom
+  - CI/CD (GitHub/GitLab) can invoke any or all stages
