@@ -1,0 +1,20 @@
+incident-orchestration/sample-events/
+    -> failover-readiness-check.json
+    ->
+{
+  "service_name": "search-engine",
+  "error_rate": 0.8,
+  "latency_ms": 480,
+  "uptime": 99.9,
+  "critical_flag": false,
+  "major_flag": false,
+  "moderate_flag": false,
+  "recommended_action": "failover",
+  "primary_region": "europe-west1",
+  "secondary_region": "europe-north1",
+  "metadata": {
+    "cluster": "prod-search",
+    "node": "node-09",
+    "trace_id": "failover-check-55"
+  }
+}
