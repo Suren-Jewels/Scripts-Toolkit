@@ -58,19 +58,19 @@ flowchart TD
 ## 🎯 Design Principles
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ ⚛️  ATOMIC CAPABILITIES                                     │
+│ ⚛️  ATOMIC CAPABILITIES                                    │
 │    Each script = one analytical function                    │
 ├─────────────────────────────────────────────────────────────┤
-│ 🔁 DETERMINISTIC OUTPUTS                                    │
+│ 🔁 DETERMINISTIC OUTPUTS                                   │
 │    Reproducible anomaly scoring and summaries               │
 ├─────────────────────────────────────────────────────────────┤
 │ 🗂️  CAPABILITY‑CENTRIC FOLDERING                           │
 │    Mirrors the entire orchestration suite                   │
 ├─────────────────────────────────────────────────────────────┤
-│ 🏭 OPERATIONAL REALISM                                      │
+│ 🏭 OPERATIONAL REALISM                                     │
 │    Aligned with real SRE post‑incident workflows            │
 ├─────────────────────────────────────────────────────────────┤
-│ 🔌 EXTENSIBLE ARCHITECTURE                                  │
+│ 🔌 EXTENSIBLE ARCHITECTURE                                 │
 │    ML‑based anomaly detection ready for integration         │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -133,7 +133,7 @@ python3 summarize-anomalies.py
        │
        ▼
 ┌──────────────────────┐     ┌──────────────────────┐
-│ detect-anomaly-      │────▶│  anomaly-score.py    │
+│ detect-anomaly-      │───▶│  anomaly-score.py    │
 │ trends.py            │     └──────┬───────────────┘
 └──────────────────────┘            │
                                     ├──────────────┐
@@ -153,9 +153,9 @@ python3 summarize-anomalies.py
 ┌──────────────┬───────┬────────────┐
 │  Timestamp   │ Score │  Severity  │
 ├──────────────┼───────┼────────────┤
-│ 2024-01-15   │  12   │  🔴🔴🟠    │
-│ 2024-01-16   │   5   │  🟠🟡      │
-│ 2024-01-17   │   8   │  🔴🟡      │
+│ 2024-01-15   │  12   │  🔴🔴🟠  │
+│ 2024-01-16   │   5   │  🟠🟡     │
+│ 2024-01-17   │   8   │  🔴🟡     │
 └──────────────┴───────┴────────────┘
 ```
 
