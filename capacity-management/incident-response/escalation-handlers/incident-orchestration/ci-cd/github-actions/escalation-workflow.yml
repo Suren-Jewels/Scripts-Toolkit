@@ -1,0 +1,92 @@
+incident-orchestration/ci-cd/github-actions/
+    -> escalation-workflow.yml
+    ->
+name: Incident Escalation Pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "escalation-handlers/**"
+  schedule:
+    - cron: "*/15 * * * *"   # optional periodic check
+
+jobs:
+  classify-severity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq bc
+
+      - name: Classify severity
+        env:
+          EVENT_FILE: event.json
+        run: |
+          chmod +x escalation-handlers/severity-detection/severity-classifier.py
+          SEVERITY=$(python3 escalation-handlers/severity-detection/severity-classifier.py)
+          echo "SEVERITY=$SEVERITY" >> $GITHUB_ENV
+
+  route-oncall:
+    needs: classify-severity
+    runs-on: ubuntu-latest
+    if: env.SEVERITY != 'NONE'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Trigger PagerDuty
+        env:
+          PD_ROUTING_KEY: ${{ secrets.PD_ROUTING_KEY }}
+          SEVERITY: ${{ env.SEVERITY }}
+        run: |
+          chmod +x escalation-handlers/oncall-routing/pagerduty-trigger.sh
+          ./escalation-handlers/oncall-routing/pagerduty-trigger.sh
+
+      - name: Send Slack escalation
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SEVERITY: ${{ env.SEVERITY }}
+        run: |
+          python3 escalation-handlers/oncall-routing/slack-escalation.py
+
+  remediation:
+    needs: route-oncall
+    runs-on: ubuntu-latest
+    if: env.SEVERITY == 'CRITICAL' || env.SEVERITY == 'MAJOR'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run remediation engine
+        env:
+          EVENT_FILE: event.json
+          SEVERITY: ${{ env.SEVERITY }}
+        run: |
+          python3 escalation-handlers/auto-remediation/remediation-engine.py
+
+  broadcast:
+    needs: remediation
+    runs-on: ubuntu-latest
+    if: env.SEVERITY != 'NONE'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Slack broadcast
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SEVERITY: ${{ env.SEVERITY }}
+          MESSAGE: "Automated Incident Broadcast"
+        run: |
+          python3 escalation-handlers/incident-orchestration/comms/slack-incident-broadcast.py
+
+      - name: Teams broadcast
+        env:
+          TEAMS_WEBHOOK: ${{ secrets.TEAMS_WEBHOOK }}
+          SEVERITY: ${{ env.SEVERITY }}
+          MESSAGE: "Automated Incident Broadcast"
+        run: |
+          python3 escalation-handlers/incident-orchestration/comms/teams-incident-broadcast.py
