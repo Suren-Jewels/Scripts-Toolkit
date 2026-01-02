@@ -1,0 +1,19 @@
+incident-orchestration/sample-events/
+    -> autoscaling-load-event.json
+    ->
+{
+  "service_name": "frontend-web",
+  "error_rate": 1.2,
+  "latency_ms": 620,
+  "uptime": 99.8,
+  "critical_flag": false,
+  "major_flag": false,
+  "moderate_flag": false,
+  "recommended_action": "scale-out",
+  "scale_delta": 2,
+  "metadata": {
+    "cluster": "prod-web",
+    "node": "node-03",
+    "trace_id": "autoscale-202"
+  }
+}
