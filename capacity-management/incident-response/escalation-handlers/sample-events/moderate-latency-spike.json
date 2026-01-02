@@ -1,0 +1,18 @@
+incident-orchestration/sample-events/
+    -> moderate-latency-spike.json
+    ->
+{
+  "service_name": "auth-gateway",
+  "error_rate": 4.9,
+  "latency_ms": 910,
+  "uptime": 99.1,
+  "critical_flag": false,
+  "major_flag": false,
+  "moderate_flag": true,
+  "recommended_action": "restart",
+  "metadata": {
+    "cluster": "prod-c",
+    "node": "node-22",
+    "trace_id": "latency-spike-001"
+  }
+}
