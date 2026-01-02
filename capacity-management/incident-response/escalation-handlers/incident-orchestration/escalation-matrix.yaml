@@ -1,0 +1,21 @@
+incident-orchestration/
+    -> escalation-matrix.yaml
+    ->
+teams:
+  primary-oncall:
+    level1: "sre-primary"
+    level2: "sre-manager"
+    level3: "director-infra"
+
+  secondary-oncall:
+    level1: "sre-secondary"
+    level2: "sre-manager"
+
+  tertiary-oncall:
+    level1: "support-engineer"
+    level2: "support-lead"
+
+fallbacks:
+  unreachable:
+    - "sre-manager"
+    - "director-infra"
