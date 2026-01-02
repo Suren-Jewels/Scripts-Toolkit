@@ -1,0 +1,19 @@
+incident-orchestration/sample-events/
+    -> major-performance-degradation.json
+    ->
+{
+  "service_name": "inventory-service",
+  "error_rate": 12.8,
+  "latency_ms": 1450,
+  "uptime": 97.2,
+  "critical_flag": false,
+  "major_flag": true,
+  "moderate_flag": false,
+  "recommended_action": "scale-out",
+  "scale_delta": 3,
+  "metadata": {
+    "cluster": "prod-b",
+    "node": "node-04",
+    "trace_id": "xyz789-major"
+  }
+}
