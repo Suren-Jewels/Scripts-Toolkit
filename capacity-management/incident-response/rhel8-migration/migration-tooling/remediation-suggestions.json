@@ -1,0 +1,10 @@
+migration-tooling/
+    -> remediation-suggestions.json
+    ->
+{
+  "python2": "Install python3 and migrate scripts accordingly.",
+  "iptables-services": "Replace with nftables and update firewall rules.",
+  "network": "Migrate to NetworkManager and validate NIC configs.",
+  "e1000": "Replace deprecated NIC driver with supported alternatives.",
+  "bnx2": "Use updated Broadcom drivers compatible with RHEL8."
+}
