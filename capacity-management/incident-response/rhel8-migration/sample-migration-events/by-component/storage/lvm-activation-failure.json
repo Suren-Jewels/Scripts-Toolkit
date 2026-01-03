@@ -1,0 +1,21 @@
+{
+  "component": "storage",
+  "category": "lvm-regression",
+  "event_type": "lvm-activation-failure",
+  "severity": "blocker",
+  "host": "rhel8-storage-081",
+  "timestamp": "2026-01-07T01:33:12Z",
+  "description": "LVM volume groups failed to activate after RHEL8 migration.",
+  "symptoms": [
+    "vgchange -ay returns errors",
+    "Logical volumes not detected",
+    "Root filesystem unavailable"
+  ],
+  "impact": "Host unable to mount critical volumes; production outage.",
+  "recommended_actions": [
+    "Boot into rescue mode",
+    "Run pvscan, vgscan, lvscan to detect metadata",
+    "Repair LVM metadata if corrupted",
+    "Rebuild initramfs if required"
+  ]
+}
