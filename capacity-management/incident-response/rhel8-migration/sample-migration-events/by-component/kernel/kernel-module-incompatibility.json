@@ -1,0 +1,21 @@
+{
+  "component": "kernel",
+  "category": "module-incompatibility",
+  "event_type": "kernel-module-incompatibility",
+  "severity": "major",
+  "host": "rhel8-app-204",
+  "timestamp": "2026-01-05T03:58:02Z",
+  "description": "Kernel module incompatible with RHEL8 kernel version.",
+  "symptoms": [
+    "modprobe fails with version mismatch",
+    "dmesg shows module load errors",
+    "Dependent services degraded"
+  ],
+  "impact": "Service degradation; partial customer impact.",
+  "recommended_actions": [
+    "Identify incompatible module",
+    "Install updated module version",
+    "Rebuild DKMS modules if applicable",
+    "Restart dependent services"
+  ]
+}
