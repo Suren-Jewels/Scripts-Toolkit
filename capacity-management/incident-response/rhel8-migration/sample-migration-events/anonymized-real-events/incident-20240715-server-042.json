@@ -1,0 +1,21 @@
+{
+  "incident_id": "20240715-server-042",
+  "category": "boot-failure",
+  "severity": "blocker",
+  "component": "kernel",
+  "timestamp": "2024-07-15T04:12:55Z",
+  "host": "server-042",
+  "description": "System failed to boot after migration due to corrupted bootloader configuration.",
+  "symptoms": [
+    "GRUB loads but kernel handoff fails",
+    "initramfs unable to locate root filesystem",
+    "Boot loop observed"
+  ],
+  "impact": "Production outage; host unreachable.",
+  "recommended_actions": [
+    "Boot into rescue mode",
+    "Reinstall and regenerate GRUB configuration",
+    "Validate boot device mappings",
+    "Rebuild initramfs if required"
+  ]
+}
