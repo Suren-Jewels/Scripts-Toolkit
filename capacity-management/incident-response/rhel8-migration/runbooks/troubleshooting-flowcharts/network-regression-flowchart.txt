@@ -1,0 +1,38 @@
++--------------------------------------------------+
+|        RHEL8 NETWORK REGRESSION FLOWCHART        |
++--------------------------------------------------+
+
+START
+  |
+  v
+Is interface detected?
+  |-- NO --> Check NIC drivers → reinstall/update
+  |
+  |-- YES -->
+        |
+        v
+Does interface have IP?
+  |-- NO --> Check NetworkManager config
+  |            |
+  |            v
+  |         Restore backup ifcfg-* files
+  |
+  |-- YES -->
+        |
+        v
+Can host ping gateway?
+  |-- NO --> Check routing table + default route
+  |
+  |-- YES -->
+        |
+        v
+Can host resolve DNS?
+  |-- NO --> Check /etc/resolv.conf + DNS servers
+  |
+  |-- YES -->
+        |
+        v
+Can host reach external network?
+  |-- NO --> Check firewall rules + SELinux
+  |
+  |-- YES --> NETWORK HEALTHY
