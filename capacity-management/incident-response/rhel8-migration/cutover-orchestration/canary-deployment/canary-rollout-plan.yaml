@@ -1,0 +1,13 @@
+rollout_plan:
+  phase_1:
+    name: "canary-10"
+    description: "Initial 10-host rollout"
+    threshold: "all must pass"
+  phase_2:
+    name: "canary-100"
+    description: "Expand to 100 hosts"
+    threshold: "95% success required"
+  phase_3:
+    name: "full-rollout"
+    description: "Rollout to entire fleet"
+    threshold: "proceed if phase_2 success"
