@@ -1,0 +1,20 @@
+{
+  "severity": "major",
+  "category": "network-regression",
+  "event_type": "dns-resolution-failure",
+  "host": "rhel8-app-310",
+  "timestamp": "2026-01-03T04:22:11Z",
+  "description": "DNS resolution intermittently failing after RHEL8 migration.",
+  "symptoms": [
+    "Intermittent DNS lookup failures",
+    "Slow application responses",
+    "External domains unreachable"
+  ],
+  "impact": "Service degraded; partial customer impact.",
+  "recommended_actions": [
+    "Validate /etc/resolv.conf",
+    "Check DNS server reachability",
+    "Review NetworkManager DNS configuration",
+    "Flush DNS caches"
+  ]
+}
