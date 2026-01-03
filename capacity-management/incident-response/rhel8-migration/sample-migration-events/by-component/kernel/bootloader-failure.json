@@ -1,0 +1,21 @@
+{
+  "component": "kernel",
+  "category": "bootloader",
+  "event_type": "bootloader-failure",
+  "severity": "blocker",
+  "host": "rhel8-core-011",
+  "timestamp": "2026-01-05T02:44:19Z",
+  "description": "Bootloader failed to load kernel after RHEL8 migration.",
+  "symptoms": [
+    "GRUB loads but fails to hand off to kernel",
+    "Missing or corrupted GRUB configuration",
+    "Boot loop observed"
+  ],
+  "impact": "Host unable to boot; production outage.",
+  "recommended_actions": [
+    "Boot into rescue mode",
+    "Reinstall GRUB",
+    "Regenerate GRUB configuration",
+    "Validate boot device mappings"
+  ]
+}
