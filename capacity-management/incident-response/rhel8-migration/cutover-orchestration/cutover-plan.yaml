@@ -1,0 +1,11 @@
+cutover_steps:
+  - step: "pre-checks"
+    description: "Run pre-cutover readiness checklist"
+  - step: "freeze-window"
+    description: "Enter migration freeze window"
+  - step: "execute-migration"
+    description: "Trigger RHEL8 migration workflow"
+  - step: "post-validation"
+    description: "Validate system health after cutover"
+  - step: "release"
+    description: "Exit freeze window and release systems"
