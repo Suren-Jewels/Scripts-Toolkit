@@ -1,0 +1,21 @@
+{
+  "incident_id": "20240805-server-289",
+  "category": "package-conflict",
+  "severity": "major",
+  "component": "packages",
+  "timestamp": "2024-08-05T09:47:02Z",
+  "host": "server-289",
+  "description": "Package dependency conflict detected after migration, blocking application startup.",
+  "symptoms": [
+    "dnf reports unresolved dependencies",
+    "Application fails to start due to missing libraries",
+    "Version mismatch across dependent packages"
+  ],
+  "impact": "Service degradation; application partially unavailable.",
+  "recommended_actions": [
+    "Run dnf repoquery to identify conflicts",
+    "Reinstall or update conflicting packages",
+    "Validate library paths",
+    "Rebuild application environment if required"
+  ]
+}
