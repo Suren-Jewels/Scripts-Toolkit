@@ -1,0 +1,17 @@
+{
+  "BLOCKER": {
+    "notify": ["slack", "pagerduty", "opsgenie"],
+    "rollback_required": true,
+    "auto_escalate_after_minutes": 0
+  },
+  "MAJOR": {
+    "notify": ["slack"],
+    "rollback_required": false,
+    "auto_escalate_after_minutes": 15
+  },
+  "MINOR": {
+    "notify": ["slack"],
+    "rollback_required": false,
+    "auto_escalate_after_minutes": 60
+  }
+}
