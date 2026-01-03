@@ -1,0 +1,28 @@
++--------------------------------------------------+
+|        RHEL8 SERVICE FAILURE FLOWCHART           |
++--------------------------------------------------+
+
+START
+  |
+  v
+Is service enabled?
+  |-- NO --> systemctl enable <service>
+  |
+  |-- YES -->
+        |
+        v
+Does service start?
+  |-- NO --> Check systemctl status
+  |            |
+  |            v
+  |         Config error?
+  |            |-- YES → Fix config + reload
+  |            |-- NO  → Check logs in journalctl
+  |
+  |-- YES -->
+        |
+        v
+Does service stay active?
+  |-- NO --> Check dependencies + SELinux AVCs
+  |
+  |-- YES --> SERVICE HEALTHY
