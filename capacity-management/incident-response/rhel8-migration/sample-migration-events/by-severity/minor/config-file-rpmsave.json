@@ -1,0 +1,19 @@
+{
+  "severity": "minor",
+  "category": "config-drift",
+  "event_type": "config-file-rpmsave",
+  "host": "rhel8-core-077",
+  "timestamp": "2026-01-04T04:55:22Z",
+  "description": "Configuration file replaced during migration, generating an .rpmsave backup.",
+  "symptoms": [
+    "Presence of *.rpmsave file",
+    "Service still functional",
+    "Minor configuration drift detected"
+  ],
+  "impact": "Low impact; configuration mismatch may cause future inconsistencies.",
+  "recommended_actions": [
+    "Compare new config with .rpmsave backup",
+    "Restore required settings",
+    "Commit updated configuration to version control"
+  ]
+}
