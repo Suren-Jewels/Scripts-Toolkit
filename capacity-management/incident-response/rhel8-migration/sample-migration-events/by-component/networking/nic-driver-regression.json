@@ -1,0 +1,21 @@
+{
+  "component": "networking",
+  "category": "driver-regression",
+  "event_type": "nic-driver-regression",
+  "severity": "major",
+  "host": "rhel8-net-092",
+  "timestamp": "2026-01-06T02:21:44Z",
+  "description": "NIC driver regression detected after RHEL8 migration.",
+  "symptoms": [
+    "NIC intermittently drops link",
+    "dmesg shows driver initialization errors",
+    "NetworkManager repeatedly restarts interface"
+  ],
+  "impact": "Service degradation; intermittent connectivity issues.",
+  "recommended_actions": [
+    "Validate NIC driver version compatibility",
+    "Install updated driver package",
+    "Reload or rebind NIC driver",
+    "Monitor interface stability post‑fix"
+  ]
+}
