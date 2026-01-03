@@ -1,0 +1,19 @@
+{
+  "severity": "minor",
+  "category": "selinux-regression",
+  "event_type": "selinux-context-mismatch",
+  "host": "rhel8-sec-014",
+  "timestamp": "2026-01-04T06:18:44Z",
+  "description": "SELinux context mismatch detected on non-critical files.",
+  "symptoms": [
+    "restorecon reports mismatched contexts",
+    "No service failures observed",
+    "Minor audit log noise"
+  ],
+  "impact": "Cosmetic issue; no operational impact.",
+  "recommended_actions": [
+    "Run restorecon on affected paths",
+    "Review SELinux policy changes",
+    "Update documentation if recurring"
+  ]
+}
