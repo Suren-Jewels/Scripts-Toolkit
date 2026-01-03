@@ -1,0 +1,20 @@
+{
+  "severity": "blocker",
+  "category": "boot-failure",
+  "event_type": "kernel-panic",
+  "host": "rhel7-app-042",
+  "timestamp": "2026-01-02T05:14:33Z",
+  "description": "Kernel panic encountered during first reboot after RHEL8 migration.",
+  "symptoms": [
+    "Kernel panic - not syncing",
+    "initramfs unable to mount root filesystem",
+    "GRUB loads but kernel fails immediately"
+  ],
+  "impact": "Host unreachable; application offline; production outage.",
+  "recommended_actions": [
+    "Boot into rescue mode",
+    "Rebuild initramfs",
+    "Validate kernel version alignment",
+    "Reinstall GRUB if required"
+  ]
+}
