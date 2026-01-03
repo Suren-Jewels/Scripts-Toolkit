@@ -1,0 +1,19 @@
+{
+  "severity": "minor",
+  "category": "package-warning",
+  "event_type": "deprecated-package-warning",
+  "host": "rhel8-app-552",
+  "timestamp": "2026-01-04T03:11:09Z",
+  "description": "Deprecated package detected during post-migration validation.",
+  "symptoms": [
+    "dnf reports deprecated package",
+    "No functional impact observed",
+    "Package scheduled for removal in future releases"
+  ],
+  "impact": "Cosmetic issue; no customer impact.",
+  "recommended_actions": [
+    "Review package deprecation notice",
+    "Plan removal or replacement in next maintenance window",
+    "Update documentation accordingly"
+  ]
+}
