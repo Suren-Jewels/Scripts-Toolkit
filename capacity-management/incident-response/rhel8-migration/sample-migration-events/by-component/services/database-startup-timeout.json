@@ -1,0 +1,21 @@
+{
+  "component": "services",
+  "category": "database-regression",
+  "event_type": "database-startup-timeout",
+  "severity": "blocker",
+  "host": "rhel8-db-044",
+  "timestamp": "2026-01-08T02:47:31Z",
+  "description": "Database service failed to start within timeout window after migration.",
+  "symptoms": [
+    "systemctl reports startup timeout",
+    "Database logs show slow initialization",
+    "Dependent applications unable to connect"
+  ],
+  "impact": "Production outage; database unavailable.",
+  "recommended_actions": [
+    "Review database logs for slow initialization causes",
+    "Increase systemd timeout if appropriate",
+    "Validate storage performance and I/O latency",
+    "Restart database and verify readiness"
+  ]
+}
