@@ -1,0 +1,20 @@
+{
+  "severity": "major",
+  "category": "package-regression",
+  "event_type": "package-dependency-conflict",
+  "host": "rhel8-core-199",
+  "timestamp": "2026-01-03T06:41:02Z",
+  "description": "Package dependency conflict detected after RHEL8 migration.",
+  "symptoms": [
+    "dnf reports unresolved dependencies",
+    "Application startup blocked",
+    "Missing or incompatible libraries"
+  ],
+  "impact": "Service degraded; application partially unavailable.",
+  "recommended_actions": [
+    "Run dnf repoquery to identify conflicts",
+    "Reinstall conflicting packages",
+    "Validate library paths",
+    "Rebuild application environment if required"
+  ]
+}
