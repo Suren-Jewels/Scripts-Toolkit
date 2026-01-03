@@ -1,0 +1,20 @@
+{
+  "severity": "major",
+  "category": "storage-regression",
+  "event_type": "storage-mount-issues",
+  "host": "rhel8-storage-044",
+  "timestamp": "2026-01-03T05:10:55Z",
+  "description": "Storage volumes failing to mount after migration.",
+  "symptoms": [
+    "fstab entries failing",
+    "mount command returns errors",
+    "SELinux preventing mount operations"
+  ],
+  "impact": "Degraded service; application experiencing partial outages.",
+  "recommended_actions": [
+    "Validate fstab syntax",
+    "Check SELinux AVC logs",
+    "Confirm device paths and UUIDs",
+    "Remount volumes and verify permissions"
+  ]
+}
