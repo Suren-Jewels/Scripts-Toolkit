@@ -1,0 +1,21 @@
+{
+  "incident_id": "20240722-server-156",
+  "category": "network-regression",
+  "severity": "major",
+  "component": "networking",
+  "timestamp": "2024-07-22T11:33:21Z",
+  "host": "server-156",
+  "description": "Network connectivity degraded after migration due to NIC driver instability.",
+  "symptoms": [
+    "Intermittent packet loss",
+    "NIC resets observed in dmesg",
+    "NetworkManager repeatedly restarts interface"
+  ],
+  "impact": "Service degradation; intermittent connectivity issues.",
+  "recommended_actions": [
+    "Validate NIC driver version compatibility",
+    "Install updated driver package",
+    "Reload or rebind NIC driver",
+    "Monitor interface stability post‑fix"
+  ]
+}
