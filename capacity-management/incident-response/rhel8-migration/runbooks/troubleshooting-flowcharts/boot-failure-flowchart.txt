@@ -1,0 +1,38 @@
++--------------------------------------------------+
+|            RHEL8 BOOT FAILURE FLOWCHART          |
++--------------------------------------------------+
+
+START
+  |
+  v
+Is GRUB visible?
+  |-- NO --> Check boot order in BIOS/UEFI
+  |            |
+  |            v
+  |         Reboot → GRUB visible?
+  |            |-- NO → Bootloader corruption → Reinstall GRUB
+  |
+  |-- YES -->
+        |
+        v
+Does kernel load?
+  |-- NO --> Kernel panic?
+  |            |-- YES → Check initramfs + missing drivers
+  |            |-- NO  → Check kernel version mismatch
+  |
+  |-- YES -->
+        |
+        v
+Does system reach systemd?
+  |-- NO --> Check /var/log/boot.log
+  |            |
+  |            v
+  |         Identify failing unit → Fix or mask service
+  |
+  |-- YES -->
+        |
+        v
+Does system reach login prompt?
+  |-- NO --> Check getty, SELinux, fstab errors
+  |
+  |-- YES --> BOOT SUCCESSFUL
