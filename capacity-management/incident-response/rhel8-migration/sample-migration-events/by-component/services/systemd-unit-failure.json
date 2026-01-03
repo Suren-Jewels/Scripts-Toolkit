@@ -1,0 +1,21 @@
+{
+  "component": "services",
+  "category": "systemd-regression",
+  "event_type": "systemd-unit-failure",
+  "severity": "major",
+  "host": "rhel8-svc-129",
+  "timestamp": "2026-01-08T01:14:55Z",
+  "description": "A critical systemd unit failed to start after RHEL8 migration.",
+  "symptoms": [
+    "systemctl status shows unit in failed state",
+    "journalctl logs indicate missing dependencies",
+    "Service restart attempts unsuccessful"
+  ],
+  "impact": "Service degradation; dependent applications partially unavailable.",
+  "recommended_actions": [
+    "Review journalctl logs for dependency failures",
+    "Validate unit file syntax and ExecStart paths",
+    "Check SELinux denials",
+    "Restart service and confirm stability"
+  ]
+}
