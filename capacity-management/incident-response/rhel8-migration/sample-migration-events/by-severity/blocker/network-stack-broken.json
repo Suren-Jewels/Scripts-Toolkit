@@ -1,0 +1,21 @@
+{
+  "severity": "blocker",
+  "category": "network-regression",
+  "event_type": "network-stack-broken",
+  "host": "rhel8-edge-221",
+  "timestamp": "2026-01-02T07:45:19Z",
+  "description": "Network stack non-functional after migration.",
+  "symptoms": [
+    "No IP assigned",
+    "NIC not detected",
+    "Cannot reach gateway",
+    "DNS resolution failing"
+  ],
+  "impact": "Host isolated; cannot communicate with internal or external networks.",
+  "recommended_actions": [
+    "Validate NIC drivers",
+    "Restore ifcfg-* configuration",
+    "Rebuild NetworkManager profiles",
+    "Check firewall and SELinux rules"
+  ]
+}
