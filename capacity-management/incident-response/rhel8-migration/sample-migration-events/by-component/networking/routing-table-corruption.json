@@ -1,0 +1,21 @@
+{
+  "component": "networking",
+  "category": "routing-regression",
+  "event_type": "routing-table-corruption",
+  "severity": "blocker",
+  "host": "rhel8-edge-317",
+  "timestamp": "2026-01-06T03:55:12Z",
+  "description": "Routing table corrupted after migration, causing total network isolation.",
+  "symptoms": [
+    "ip route shows invalid or missing routes",
+    "Gateway unreachable",
+    "External and internal traffic blocked"
+  ],
+  "impact": "Host isolated; production outage.",
+  "recommended_actions": [
+    "Flush and rebuild routing table",
+    "Validate gateway and static routes",
+    "Restart NetworkManager",
+    "Confirm persistent route configuration"
+  ]
+}
