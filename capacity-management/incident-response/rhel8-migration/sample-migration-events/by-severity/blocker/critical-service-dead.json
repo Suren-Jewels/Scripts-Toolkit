@@ -1,0 +1,20 @@
+{
+  "severity": "blocker",
+  "category": "service-failure",
+  "event_type": "critical-service-dead",
+  "host": "rhel8-core-118",
+  "timestamp": "2026-01-02T06:02:11Z",
+  "description": "Critical production service failed to start after migration.",
+  "symptoms": [
+    "systemctl status shows service dead",
+    "SELinux AVC denials detected",
+    "Dependent services failing"
+  ],
+  "impact": "Production application unavailable; customer impact ongoing.",
+  "recommended_actions": [
+    "Check journalctl logs for root cause",
+    "Validate service configuration syntax",
+    "Review SELinux denials and apply fixes",
+    "Restart service and confirm stability"
+  ]
+}
