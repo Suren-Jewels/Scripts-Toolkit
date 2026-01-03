@@ -1,0 +1,21 @@
+{
+  "component": "storage",
+  "category": "filesystem-regression",
+  "event_type": "filesystem-mount-error",
+  "severity": "major",
+  "host": "rhel8-app-443",
+  "timestamp": "2026-01-07T02:55:47Z",
+  "description": "Filesystem failed to mount after migration due to configuration or permission issues.",
+  "symptoms": [
+    "mount command returns permission or type errors",
+    "fstab entry failing",
+    "SELinux blocking mount operation"
+  ],
+  "impact": "Service degradation; partial outage for applications relying on affected mount.",
+  "recommended_actions": [
+    "Validate fstab syntax and mount options",
+    "Check SELinux AVC logs",
+    "Run fsck if filesystem corruption suspected",
+    "Remount and verify permissions"
+  ]
+}
