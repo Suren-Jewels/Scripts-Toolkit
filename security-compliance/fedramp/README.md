@@ -540,3 +540,13 @@ This module provides **end‑to‑end automation** for FedRAMP compliance workfl
 **🔧 Maintained by:** FixWare Security Engineering  
 **📅 Last Updated:** 2026-01-03  
 **📊 Module Version:** 2.1.0
+
+---
+
+<div align="center">
+
+**Built for DoD Impact Level Compliance** | **Maintained by Suren Jewels**
+
+[![GitHub](https://img.shields.io/badge/GitHub-Suren--Jewels-181717?logo=github)](https://github.com/Suren-Jewels)
+
+</div>
