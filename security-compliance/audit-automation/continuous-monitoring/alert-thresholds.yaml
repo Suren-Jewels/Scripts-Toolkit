@@ -1,0 +1,58 @@
+# alert-thresholds.yaml
+#
+# Centralized thresholds and policies for continuous monitoring components:
+# - real-time-compliance-monitor.py
+# - anomaly-detector.py
+# - other alerting/monitoring tools
+#
+# No credentials or secrets must ever be stored here.
+# This file is safe to version-control in standard repositories.
+
+# Severity thresholds define alerting limits for different event severities.
+severity_thresholds:
+  # Example: maximum number of events per minute allowed per severity.
+  # These values are consumed by real-time-compliance-monitor.py for
+  # determining whether an event stream should be considered saturated.
+  low:
+    max_per_minute: 500
+  medium:
+    max_per_minute: 200
+  high:
+    max_per_minute: 50
+  critical:
+    max_per_minute: 10
+
+# Global anomaly detection configuration shared across systems.
+anomaly_detection:
+  # Sliding window size used by anomaly-detector.py.
+  window_size: 20
+
+  # Absolute z-score threshold for anomaly flagging.
+  # A value of 3.0 is a common default for significant anomalies.
+  zscore_threshold: 3.0
+
+  # Optional per-metric overrides.
+  # For example, this can be used when certain metrics are naturally spiky.
+  metrics:
+    # Example metric override:
+    # login_failures:
+    #   window_size: 50
+    #   zscore_threshold: 4.0
+
+# Optional rule-based alert escalation policies.
+# These can be referenced by monitoring components to decide what to do
+# when thresholds are exceeded (e.g., send email, open ticket, page on-call).
+alert_policies:
+  # Policy identifiers should be stable and human-meaningful.
+  default:
+    description: "Default escalation policy for generic alerts."
+    notify_channels:
+      - "email"
+    severity_minimum: "medium"
+
+  high_priority:
+    description: "Used for critical anomalies and high-severity drift."
+    notify_channels:
+      - "email"
+      - "pager"
+    severity_minimum: "high"
