@@ -1,0 +1,91 @@
+# finding-templates.yaml
+# Standard templates for audit findings and remediation planning.
+#
+# These templates are consumed by remediation-plan-generator.py and can also be
+# used as reference patterns during audit execution to keep findings consistent.
+#
+# Notes:
+# - You can add, remove, or modify templates without changing the code.
+# - Fields under "match" are used for template selection. Any of them can be
+#   omitted to make the template more generic.
+
+- id: access-control-critical
+  match:
+    severity: CRITICAL
+    category: ACCESS CONTROL
+    risk_level: CRITICAL
+  sla_days: 15
+  owner_role: Identity and Access Management
+  remediation_steps:
+    - "Revoke all unauthorized access and rotate affected credentials."
+    - "Implement least-privilege access model for the impacted systems."
+    - "Add or enhance multi-factor authentication for privileged accounts."
+    - "Deploy monitoring and alerting for anomalous access patterns."
+    - "Update access review procedures and frequency for the affected scope."
+
+- id: logging-monitoring-high
+  match:
+    severity: HIGH
+    category: LOGGING AND MONITORING
+  sla_days: 30
+  owner_role: Security Operations Center
+  remediation_steps:
+    - "Enable centralized logging for all in-scope systems."
+    - "Ensure log retention meets compliance requirements."
+    - "Configure alerts for high-risk events (authentication failures, privilege changes, policy changes)."
+    - "Document and test runbooks for triage of key alerts."
+
+- id: configuration-management-medium
+  match:
+    severity: MEDIUM
+    category: CONFIGURATION MANAGEMENT
+  sla_days: 60
+  owner_role: Platform Engineering
+  remediation_steps:
+    - "Define secure baseline configurations for affected platforms."
+    - "Enforce baselines using configuration management tooling."
+    - "Implement drift detection and remediation workflows."
+    - "Update change management documentation and approvals process."
+
+- id: vulnerability-management-high
+  match:
+    severity: HIGH
+    category: VULNERABILITY MANAGEMENT
+  sla_days: 30
+  owner_role: Vulnerability Management
+  remediation_steps:
+    - "Prioritize patching for critical and high vulnerabilities on affected assets."
+    - "Implement recurring vulnerability scanning for in-scope environments."
+    - "Integrate vulnerability data with ticketing / workflow systems."
+    - "Define and track SLAs for vulnerability remediation by severity."
+
+- id: data-protection-medium
+  match:
+    severity: MEDIUM
+    category: DATA PROTECTION
+  sla_days: 60
+  owner_role: Data Security
+  remediation_steps:
+    - "Classify data and validate that controls match classification."
+    - "Enable encryption at rest and in transit for sensitive data."
+    - "Restrict access to sensitive data based on business need-to-know."
+    - "Update data handling and retention policies for the affected scope."
+
+- id: generic-low
+  match:
+    severity: LOW
+  sla_days: 90
+  owner_role: Control Owner
+  remediation_steps:
+    - "Review finding and confirm risk acceptance or remediation strategy."
+    - "Implement low-effort, high-value hardening where feasible."
+    - "Capture decision in risk register and track until closure."
+
+- id: generic-any
+  # No match section -> applies as generic fallback template
+  sla_days: 60
+  owner_role: Risk Owner
+  remediation_steps:
+    - "Assess business impact and define specific remediation steps."
+    - "Assign accountable owner and agree on target dates."
+    - "Document remediation plan and track through to closure."
