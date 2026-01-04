@@ -1,0 +1,95 @@
+# audit-schedule.yaml
+# Central configuration for scheduled audit tasks.
+#
+# This file does NOT contain any credentials or secrets.
+# It is intended to:
+#   - define what jobs exist
+#   - how often they should run
+#   - where their configs live
+#   - what environments they target
+#
+# Execution (examples):
+#   - daily compliance scan: cron/systemd scheduler invokes daily-compliance-scan.sh using compliance config
+#   - weekly security audit: scheduler invokes weekly-security-audit.py with one of these profiles
+#   - monthly access review: scheduler invokes monthly-access-review.ps1 for each environment as needed
+#   - quarterly control assessment: scheduler invokes quarterly-control-assessment.py with the appropriate config
+#
+# Actual scheduling (cron, systemd timers, Azure Automation, etc.) should reference this
+# file for coordination but is configured outside of this repo.
+
+version: "1.0"
+
+environments:
+  - name: "prod"
+    description: "Primary production environment"
+  - name: "stage"
+    description: "Staging / pre-production environment"
+  - name: "dev"
+    description: "Shared development environment"
+
+jobs:
+  # --- Daily jobs ---
+  - id: "daily-compliance-prod"
+    type: "daily-compliance-scan"
+    schedule: "0 2 * * *"          # 02:00 daily (cron-style for documentation)
+    enabled: true
+    environment: "prod"
+    script: "./daily-compliance-scan.sh"
+    config: "../configs/compliance-prod.yaml"
+    log_file: "/var/log/audit-automation/daily-compliance-prod.log"
+    notes: "Runs baseline compliance checks in prod."
+
+  - id: "daily-compliance-stage"
+    type: "daily-compliance-scan"
+    schedule: "0 3 * * *"
+    enabled: true
+    environment: "stage"
+    script: "./daily-compliance-scan.sh"
+    config: "../configs/compliance-stage.yaml"
+    log_file: "/var/log/audit-automation/daily-compliance-stage.log"
+    notes: "Runs baseline compliance checks in stage."
+
+  # --- Weekly jobs ---
+  - id: "weekly-security-audit-prod"
+    type: "weekly-security-audit"
+    schedule: "0 4 * * 1"          # 04:00 every Monday
+    enabled: true
+    environment: "prod"
+    script: "./weekly-security-audit.py"
+    config: "../configs/weekly-security-audit-prod.yaml"
+    log_file: "/var/log/audit-automation/weekly-security-audit-prod.log"
+    notes: "Comprehensive weekly security checks in production."
+
+  # --- Monthly jobs ---
+  - id: "monthly-access-review-prod"
+    type: "monthly-access-review"
+    schedule: "0 5 1 * *"          # 05:00 on the first day of every month
+    enabled: true
+    environment: "prod"
+    script: "./monthly-access-review.ps1"
+    config: "../configs/monthly-access-review-prod.json"
+    log_file: "C:\\Logs\\audit-automation\\monthly-access-review-prod.log"
+    notes: "Monthly access review for production users."
+
+  # --- Quarterly jobs ---
+  - id: "quarterly-control-assessment-enterprise"
+    type: "quarterly-control-assessment"
+    schedule: "0 6 1 1,4,7,10 *"   # 06:00 on the first day of Jan, Apr, Jul, Oct
+    enabled: true
+    environment: "prod"
+    script: "./quarterly-control-assessment.py"
+    config: "../configs/quarterly-control-assessment-enterprise.yaml"
+    log_file: "/var/log/audit-automation/quarterly-control-assessment-enterprise.log"
+    notes: "Enterprise-wide quarterly control effectiveness review."
+
+defaults:
+  log_level: "INFO"
+  retry:
+    max_attempts: 3
+    backoff_seconds: 60
+
+metadata:
+  owner: "Security Operations"
+  contact_email: "secops@example.com"
+  last_updated: "2026-01-01"
+  description: "Master schedule for automated compliance, security, access, and control assessments."
