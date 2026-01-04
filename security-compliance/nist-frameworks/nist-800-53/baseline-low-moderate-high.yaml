@@ -1,0 +1,43 @@
+# NIST 800-53 Baseline Definitions (Synthetic)
+# This file defines control sets for LOW, MODERATE, and HIGH baselines.
+# It is designed to be consumed by nist-800-53-scanner.py and similar tools.
+
+baselines:
+  LOW:
+    description: "Minimal control set for low-impact systems (synthetic)."
+    controls:
+      - "AC-1"
+      - "AC-2"
+      - "AU-2"
+      - "CM-2"
+      - "CP-9"
+      - "IA-2"
+
+  MODERATE:
+    description: "Control set for moderate-impact systems (synthetic)."
+    controls:
+      - "AC-1"
+      - "AC-2"
+      - "AC-3"
+      - "AU-2"
+      - "AU-6"
+      - "CM-2"
+      - "CP-9"
+      - "IA-2"
+      - "SC-7"
+      - "SI-2"
+
+  HIGH:
+    description: "Enhanced control set for high-impact systems (synthetic)."
+    controls:
+      - "AC-1"
+      - "AC-2"
+      - "AC-3"
+      - "AU-2"
+      - "AU-6"
+      - "CM-2"
+      - "CP-9"
+      - "IA-2"
+      - "SC-7"
+      - "SI-2"
+      # In real environments, HIGH would include additional enhanced controls.
