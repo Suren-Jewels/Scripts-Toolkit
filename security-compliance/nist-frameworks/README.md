@@ -53,7 +53,7 @@ graph TD
     Root --> NIST80053[[📋 NIST 800-53]]
     Root --> NIST800171[[🔒 NIST 800-171]]
     Root --> NISTCSF[[🛡️ NIST CSF]]
-    Root --> NISTRM F[[⚙️ NIST RMF]]
+    Root --> NISTRMF[[⚙️ NIST RMF]]
     
     NIST80053 --> F1[800-53-controls-validator.py]
     NIST80053 --> F2[800-53-gap-analyzer.py]
