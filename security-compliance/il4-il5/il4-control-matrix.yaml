@@ -1,0 +1,29 @@
+# IL4 Control Matrix
+# Synthetic example: maps IL4 controls to requirement summaries.
+
+impact_level: IL4
+controls:
+  AC-2:
+    description: "Account management for IL4 users and devices"
+    requirement: "Automated provisioning, deprovisioning, and periodic recertification"
+  AC-3:
+    description: "Access enforcement"
+    requirement: "Role‑based access with least privilege"
+  AU-2:
+    description: "Audit event definition"
+    requirement: "Central logging for security‑relevant events"
+  CM-2:
+    description: "Baseline configuration"
+    requirement: "Hardened baselines for IL4 workloads"
+  CP-9:
+    description: "System backup"
+    requirement: "Encrypted backups with tested restore"
+  IA-2:
+    description: "Identification and authentication"
+    requirement: "MFA enforced for all IL4 interactive users"
+  SC-7:
+    description: "Boundary protection"
+    requirement: "Network segmentation for IL4 enclaves"
+  SI-2:
+    description: "Flaw remediation"
+    requirement: "Timely patching for IL4 systems"
