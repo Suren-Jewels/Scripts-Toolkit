@@ -1,0 +1,53 @@
+# NIST 800-171 Control Self-Assessment Template
+# Synthetic, automation-friendly structure designed for internal self-assessments.
+# Not an official template, but maps cleanly to scripts and reporting.
+
+metadata:
+  system_name: "EXAMPLE-SYSTEM"
+  system_owner: "Owner Name"
+  reviewer: "Reviewer Name"
+  review_date: "2025-01-01"
+  classification: "Internal Use Only"
+
+assessment_scope:
+  description: "Scope of NIST 800-171 self-assessment."
+  included_systems:
+    - "Primary application environment"
+    - "Database cluster"
+  excluded_systems:
+    - "Third-party SaaS integrations"
+
+controls:
+  "3.1.1":
+    family: "Access Control (AC)"
+    name: "Limit system access to authorized users"
+    status: "PARTIALLY_IMPLEMENTED" # NOT_IMPLEMENTED | PARTIALLY_IMPLEMENTED | FULLY_IMPLEMENTED
+    implementation_summary: "User access is managed via centralized identity provider; periodic reviews in progress."
+    evidence:
+      - "Access control policy"
+      - "User access review report (Q4)"
+    gap_description: "Formal recertification cadence not yet fully established."
+    remediation_plan: "Implement quarterly access reviews with documented sign-off."
+    target_completion: "2025-03-31"
+
+  "3.1.2":
+    family: "Access Control (AC)"
+    name: "Limit system access to the types of transactions and functions that authorized users are permitted to execute"
+    status: "NOT_IMPLEMENTED"
+    implementation_summary: ""
+    evidence: []
+    gap_description: "Role-based access control is not yet fully implemented across all applications."
+    remediation_plan: "Define RBAC roles and align application permissions accordingly."
+    target_completion: "2025-06-30"
+
+  "3.13.11":
+    family: "System and Communications Protection (SC)"
+    name: "Employ FIPS-validated cryptography when used to protect the confidentiality of CUI"
+    status: "FULLY_IMPLEMENTED"
+    implementation_summary: "All CUI storage uses encrypted volumes; TLS configurations use approved cipher suites."
+    evidence:
+      - "Encryption configuration documentation"
+      - "TLS configuration screenshot"
+    gap_description: ""
+    remediation_plan: ""
+    target_completion: ""
