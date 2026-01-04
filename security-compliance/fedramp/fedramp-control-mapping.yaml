@@ -1,0 +1,43 @@
+# FedRAMP Control Mapping
+# Maps FedRAMP controls to system implementation details.
+# This file is consumed by fedramp-ssp-generator.py
+
+AC-2:
+  description: "Account management procedures implemented"
+  implementation: "IAM automation, lifecycle scripts, MFA enforcement"
+
+AC-3:
+  description: "Access enforcement"
+  implementation: "RBAC, conditional access, network segmentation"
+
+AU-2:
+  description: "Audit event definition"
+  implementation: "Centralized logging, SIEM ingestion rules"
+
+AU-6:
+  description: "Audit review and analysis"
+  implementation: "Daily log review automation, alerting thresholds"
+
+CM-2:
+  description: "Baseline configuration"
+  implementation: "Immutable images, IaC templates, drift detection"
+
+CM-6:
+  description: "Configuration settings"
+  implementation: "CIS benchmarks, automated compliance scans"
+
+CP-9:
+  description: "Information system backup"
+  implementation: "Encrypted backups, cross-region replication"
+
+IA-2:
+  description: "Identification and authentication"
+  implementation: "MFA, SSO, identity provider integration"
+
+SC-7:
+  description: "Boundary protection"
+  implementation: "Firewalls, WAF, network ACLs, Zero Trust segmentation"
+
+SI-2:
+  description: "Flaw remediation"
+  implementation: "Patch automation, vulnerability scanning, ticketing integration"
