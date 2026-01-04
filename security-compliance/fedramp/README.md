@@ -1,42 +1,38 @@
 # 🏛️ FedRAMP Compliance Automation Module
 
-![Module](https://img.shields.io/badge/FedRAMP-Automation-0A84FF) ![Impact](https://img.shields.io/badge/Moderate%20%7C%20High-FFD60A) ![Category](https://img.shields.io/badge/Security%20%7C%20Compliance-34C759) ![Automation](https://img.shields.io/badge/Automated-30D158)
+![FedRAMP](https://img.shields.io/badge/FedRAMP-Moderate%20%7C%20High-0A84FF) ![Automation](https://img.shields.io/badge/Automation-Enabled-34C759) ![Compliance](https://img.shields.io/badge/Compliance-ConMon-FFD60A) ![NIST](https://img.shields.io/badge/NIST-800--53-6C757D)
 
-A modular, capability-centric automation suite for **FedRAMP Moderate/High** compliance workflows, providing validators, generators, collectors, and continuous monitoring tooling designed for repeatable, auditable, and scalable compliance operations.
+**Automated FedRAMP compliance validation and documentation toolkit for Moderate and High baseline authorization, featuring continuous monitoring, control validation, System Security Plan generation, and POA&M tracking.**
 
 | Resource | Link |
 |----------|------|
-| FedRAMP Baselines | https://www.fedramp.gov |
-| NIST 800-53 Controls | https://csrc.nist.gov |
-| Documentation | https://docs.fedramp.gov |
-| GitHub | https://github.com/Suren-Jewels |
+| FedRAMP.gov | https://www.fedramp.gov/ |
+| NIST 800-53 Controls | https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final |
+| FedRAMP Automation | https://automate.fedramp.gov/ |
+| GitHub Repository | https://github.com/Suren-Jewels/Scripts-Toolkit |
 
 ---
 
-## 📊 Current Compliance Status
+## 📊 Current FedRAMP Compliance Status
 ```
-Control Implementation         [████████████████████░░░░] 85% (340/400)  ✓
-SSP Documentation Coverage     [███████████████████░░░░░] 78% (312/400)  ⚠
-POA&M Resolution Rate          [██████████████████░░░░░░] 72% (108/150)  ⚠
+Moderate Baseline Implementation  [████████████████████░░░░] 83% (299/361) ✓
+High Baseline Implementation      [███████████████░░░░░░░░░] 64% (317/495) ⚠
 ────────────────────────────────────────────────────────────────────────────
-Continuous Monitoring:
-  Patch Currency               [████████████████████████] 98%            ✓
-  Vulnerability Scans          [███████████████████████░] 95%            ✓
-  Log Collection Status        [██████████████████████░░] 92%            ✓
+Access Control (AC):
+  Moderate Controls               [████████████████████████] 95% (19/20)   ✓
+  High Controls                   [███████████████████████░] 92% (23/25)   ✓
+  Implementation Evidence         [██████████████████████░░] 88% (22/25)   ✓
 ────────────────────────────────────────────────────────────────────────────
-Boundary Validation            [████████████████████████] 100%           ✓
+Continuous Monitoring             [███████████████████░░░░░] 78% (14/18)   ⚠
 ────────────────────────────────────────────────────────────────────────────
-Control Families:
-  Access Control (AC)          [████████████████████████] 96%            ✓
-  Audit & Accountability (AU)  [███████████████████████░] 94%            ✓
-  Security Assessment (CA)     [██████████████████░░░░░░] 82%            ⚠
-  Config Management (CM)       [███████████████████████░] 91%            ✓
-  Incident Response (IR)       [████████████████████░░░░] 88%            ✓
+System & Services (SA):
+  Moderate Controls               [████████████████████████] 100% (16/16)  ✓
+  High Controls                   [███████████████████████░] 95% (21/22)   ✓
 ────────────────────────────────────────────────────────────────────────────
-Monthly Trend:  ▃▄▅▆▆▇█  (Improving)
+Monthly Trend:  ▁▃▅▆▇▇█  (Improving)
 
-Risk Distribution:
-  Critical: 2  |  High: 8  |  Medium: 28  |  Low: 45  |  Info: 67
+POA&M Distribution:
+  Open: 47  |  In Progress: 23  |  Overdue: 8  |  Closed: 142  |  Total: 220
 ```
 
 ---
@@ -44,29 +40,32 @@ Risk Distribution:
 ## 🗂️ Module Architecture
 ```mermaid
 graph TD
-    Root[[🏛️ FedRAMP Compliance Module]]
+    Root[[🏛️ FedRAMP Compliance]]
     
     Root --> Category1[[🔍 Validators]]
-    Root --> Category2[[📘 Generators]]
-    Root --> Category3[[🛡️ Monitors]]
-    Root --> Category4[[📋 Configuration]]
+    Root --> Category2[[📝 Generators]]
+    Root --> Category3[[📊 Trackers]]
+    Root --> Category4[[⚙️ Configuration]]
     
     Category1 --> File1[fedramp-controls-validator.py]
     Category1 --> File2[fedramp-boundary-validator.py]
+    Category1 --> File3[continuous-monitoring-checker.sh]
     
-    Category2 --> File3[fedramp-ssp-generator.py]
-    Category2 --> File4[fedramp-poam-tracker.py]
+    Category2 --> File4[fedramp-ssp-generator.py]
+    Category2 --> File5[fedramp-inventory-collector.sh]
     
-    Category3 --> File5[continuous-monitoring-checker.sh]
-    Category3 --> File6[fedramp-inventory-collector.sh]
+    Category3 --> File6[fedramp-poam-tracker.py]
     
     Category4 --> Config1[fedramp-control-mapping.yaml]
     Category4 --> Config2[fedramp-baseline-moderate.json]
     Category4 --> Config3[fedramp-baseline-high.json]
     
+    File1 -.references.-> Config1
     File1 -.references.-> Config2
     File1 -.references.-> Config3
-    File3 -.references.-> Config1
+    File2 -.references.-> Config1
+    File4 -.references.-> Config1
+    File6 -.references.-> Config1
     
     style Category1 fill:#BBDEFB
     style Category2 fill:#FFE0B2
@@ -75,9 +74,9 @@ graph TD
     
     style File1 fill:#2196F3,color:#fff
     style File2 fill:#2196F3,color:#fff
-    style File3 fill:#FF9800,color:#fff
+    style File3 fill:#2196F3,color:#fff
     style File4 fill:#FF9800,color:#fff
-    style File5 fill:#9C27B0,color:#fff
+    style File5 fill:#FF9800,color:#fff
     style File6 fill:#9C27B0,color:#fff
     
     style Config1 fill:#FBC02D
@@ -87,28 +86,28 @@ graph TD
 
 ---
 
-## 🔄 FedRAMP Compliance Workflow
+## 🔄 FedRAMP Authorization Workflow
 ```mermaid
 flowchart LR
     subgraph INPUTS["📥 INPUTS"]
-        I1[System Metadata<br/>JSON Format]
-        I2[Implemented Controls<br/>Control List]
-        I3[Asset Inventory<br/>System Components]
-        I4[POA&M Data<br/>Remediation Status]
+        I1[NIST 800-53<br/>Control Baselines]
+        I2[System Architecture<br/>Documentation]
+        I3[Asset Inventory<br/>& Configuration]
+        I4[Security Policies<br/>& Procedures]
     end
     
     subgraph PROCESSING["⚙️ PROCESSING"]
         P1[Control Validation<br/>Python Engine]
         P2[SSP Generation<br/>Template Engine]
-        P3[Boundary Validation<br/>Comparison Logic]
-        P4[ConMon Checks<br/>Bash Scripts]
+        P3[POA&M Tracking<br/>Compliance Monitor]
+        P4[ConMon Validation<br/>Bash Scanner]
     end
     
     subgraph OUTPUTS["📤 OUTPUTS"]
-        O1[Compliance Reports<br/>JSON/HTML]
-        O2[SSP Sections<br/>Markdown/DOCX]
-        O3[Gap Analysis<br/>Spreadsheet]
-        O4[Monitoring Alerts<br/>Notifications]
+        O1[Control Compliance<br/>Reports (JSON/PDF)]
+        O2[System Security Plan<br/>Sections (DOCX)]
+        O3[POA&M Dashboard<br/>(HTML/Excel)]
+        O4[ConMon Status<br/>Report (Markdown)]
     end
     
     I1 --> P1
@@ -131,39 +130,51 @@ flowchart LR
 ## ⚙️ Control Validation Logic Flow
 ```mermaid
 flowchart TD
-    Start([Start Validation]) --> Step1[Load Baseline Configuration]
-    Step1 --> Step2[Initialize Control Repository]
+    Start([Start Validation]) --> Step1[Load FedRAMP Baseline]
+    Step1 --> Step2[Initialize Control Matrix]
     
     Step2 --> Loop{For Each Control}
     
-    Loop -->|Next Control| Decision1{Control Implemented?}
+    Loop -->|Next Control| Decision1{Evidence Exists?}
     
-    Decision1 -->|No| Action1[❌ Flag Missing Control]
-    Decision1 -->|Yes| Decision2{Documentation Complete?}
+    Decision1 -->|No| Action1[❌ Mark as Not Implemented]
+    Decision1 -->|Yes| Decision2{Evidence Complete?}
     
-    Decision2 -->|No| Action2[⚠️ Flag Incomplete Documentation]
-    Decision2 -->|Yes| Action3[✓ Mark Control Compliant]
+    Decision2 -->|No| Action2[⚠️ Mark as Partial Implementation]
+    Decision2 -->|Yes| Decision3{Testing Passed?}
     
-    Action1 --> Collect[Collect Results]
+    Decision3 -->|No| Action3[⚠️ Mark as Implementation Gap]
+    Decision3 -->|Yes| Action4[✓ Mark as Compliant]
+    
+    Action1 --> Collect[Collect Validation Results]
     Action2 --> Collect
     Action3 --> Collect
+    Action4 --> Collect
     
-    Collect --> MoreItems{More Controls?}
+    Collect --> MoreControls{More Controls?}
     
-    MoreItems -->|Yes| Loop
-    MoreItems -->|No| Generate[Generate Compliance Report]
+    MoreControls -->|Yes| Loop
+    MoreControls -->|No| Generate[Generate Compliance Report]
     
-    Generate --> Calculate[Calculate Coverage Metrics]
-    Calculate --> Output([📄 Output Validation Results])
+    Generate --> Calculate[Calculate Baseline Percentages]
+    Calculate --> POAMCheck{Gaps Found?}
+    
+    POAMCheck -->|Yes| CreatePOAM[Create POA&M Items]
+    POAMCheck -->|No| Output([📄 Final Report])
+    
+    CreatePOAM --> Output
     
     style Start fill:#4CAF50,color:#fff
     style Output fill:#4CAF50,color:#fff
-    style Action3 fill:#4CAF50,color:#fff
+    style Action4 fill:#4CAF50,color:#fff
     style Action2 fill:#FF9800,color:#fff
+    style Action3 fill:#FF9800,color:#fff
     style Action1 fill:#F44336,color:#fff
     style Decision1 fill:#2196F3,color:#fff
     style Decision2 fill:#2196F3,color:#fff
-    style MoreItems fill:#2196F3,color:#fff
+    style Decision3 fill:#2196F3,color:#fff
+    style MoreControls fill:#2196F3,color:#fff
+    style POAMCheck fill:#2196F3,color:#fff
 ```
 
 ---
@@ -173,31 +184,38 @@ flowchart TD
 sequenceDiagram
     participant User
     participant Validator
-    participant ConfigAPI
-    participant Database
+    participant SSPGenerator
+    participant POAMTracker
+    participant ConfigDB
     
-    User->>Validator: Run Compliance Check
-    Note over Validator: Load Baseline Controls
-    Validator->>ConfigAPI: Fetch Control Definitions
-    ConfigAPI->>Database: Query FedRAMP Baselines
-    Database-->>ConfigAPI: Return Control List
-    ConfigAPI-->>Validator: Control Definitions
+    User->>Validator: Execute Control Validation
+    Note over Validator: Load Baseline Configuration
+    Validator->>ConfigDB: Query Control Definitions
+    ConfigDB-->>Validator: Return Control Matrix
     
-    Note over Validator: Validate Implementations
+    Validator->>Validator: Scan System Evidence
     
-    Validator->>ConfigAPI: Fetch Implementation Data
-    ConfigAPI->>Database: Query System Controls
-    Database-->>ConfigAPI: Return Implementations
-    ConfigAPI-->>Validator: Implementation Details
+    Note over Validator: Analyze Implementation Status
     
-    Validator->>Validator: Calculate Compliance Gaps
+    Validator->>ConfigDB: Query Implementation Mapping
+    ConfigDB-->>Validator: Return Evidence Requirements
     
-    Validator->>ConfigAPI: Submit Results
-    ConfigAPI->>Database: Store Validation Report
-    Database-->>ConfigAPI: Confirmation
-    ConfigAPI-->>Validator: Success Response
+    Validator->>Validator: Calculate Compliance Score
     
-    Validator-->>User: Compliance Report Generated
+    alt Gaps Identified
+        Validator->>POAMTracker: Create POA&M Items
+        POAMTracker->>ConfigDB: Store Action Plans
+        ConfigDB-->>POAMTracker: Confirmation
+    end
+    
+    Validator->>SSPGenerator: Trigger SSP Section Update
+    SSPGenerator->>ConfigDB: Retrieve System Data
+    ConfigDB-->>SSPGenerator: Return Architecture Info
+    
+    SSPGenerator->>SSPGenerator: Generate Control Tables
+    
+    SSPGenerator-->>User: SSP Sections Generated
+    Validator-->>User: Compliance Report (JSON/PDF)
 ```
 
 ---
@@ -210,125 +228,73 @@ sequenceDiagram
       <th>File</th>
       <th>Type</th>
       <th>Purpose</th>
-      <th>Category</th>
+      <th>Baseline Coverage</th>
     </tr>
   </thead>
   <tbody>
     <tr style="background-color: #E3F2FD;">
       <td><code>fedramp-controls-validator.py</code></td>
       <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Validates implemented controls against FedRAMP baselines</td>
-      <td><img src="https://img.shields.io/badge/Validator-2196F3" alt="Validator"/></td>
+      <td>Validates NIST 800-53 control implementation against FedRAMP baseline requirements with evidence mapping</td>
+      <td><img src="https://img.shields.io/badge/Moderate%20%7C%20High-0A84FF" alt="Moderate | High"/></td>
+    </tr>
+    <tr style="background-color: #FFF9C4;">
+      <td><code>fedramp-ssp-generator.py</code></td>
+      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
+      <td>Auto-generates System Security Plan sections including control tables, narratives, and appendices</td>
+      <td><img src="https://img.shields.io/badge/Moderate%20%7C%20High-0A84FF" alt="Moderate | High"/></td>
+    </tr>
+    <tr style="background-color: #F3E5F5;">
+      <td><code>fedramp-poam-tracker.py</code></td>
+      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
+      <td>Tracks Plan of Action & Milestones with risk scoring, remediation timelines, and status dashboards</td>
+      <td><img src="https://img.shields.io/badge/All%20Baselines-34C759" alt="All Baselines"/></td>
+    </tr>
+    <tr style="background-color: #E3F2FD;">
+      <td><code>continuous-monitoring-checker.sh</code></td>
+      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
+      <td>Validates continuous monitoring (ConMon) requirements including scan frequency, log collection, and alerting</td>
+      <td><img src="https://img.shields.io/badge/ConMon-FFD60A" alt="ConMon"/></td>
     </tr>
     <tr style="background-color: #E3F2FD;">
       <td><code>fedramp-boundary-validator.py</code></td>
       <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Validates authorization boundary accuracy and completeness</td>
-      <td><img src="https://img.shields.io/badge/Validator-2196F3" alt="Validator"/></td>
+      <td>Validates authorization boundary definition, network diagrams, and data flow documentation</td>
+      <td><img src="https://img.shields.io/badge/All%20Baselines-34C759" alt="All Baselines"/></td>
     </tr>
     <tr style="background-color: #FFF3E0;">
-      <td><code>fedramp-ssp-generator.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Auto-generates System Security Plan sections from templates</td>
-      <td><img src="https://img.shields.io/badge/Generator-FF9800" alt="Generator"/></td>
-    </tr>
-    <tr style="background-color: #FFF3E0;">
-      <td><code>fedramp-poam-tracker.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Tracks and analyzes Plan of Action & Milestones status</td>
-      <td><img src="https://img.shields.io/badge/Generator-FF9800" alt="Generator"/></td>
-    </tr>
-    <tr style="background-color: #F3E5F5;">
-      <td><code>continuous-monitoring-checker.sh</code></td>
-      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
-      <td>Validates continuous monitoring requirements (patches, scans, logs)</td>
-      <td><img src="https://img.shields.io/badge/Monitor-9C27B0" alt="Monitor"/></td>
-    </tr>
-    <tr style="background-color: #F3E5F5;">
       <td><code>fedramp-inventory-collector.sh</code></td>
       <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
-      <td>Collects system asset inventory and metadata</td>
-      <td><img src="https://img.shields.io/badge/Monitor-9C27B0" alt="Monitor"/></td>
+      <td>Collects comprehensive asset inventory including hardware, software, services, and configurations</td>
+      <td><img src="https://img.shields.io/badge/All%20Baselines-34C759" alt="All Baselines"/></td>
     </tr>
-    <tr style="background-color: #FFF9C4;">
+    <tr style="background-color: #E8F5E9;">
       <td><code>fedramp-control-mapping.yaml</code></td>
       <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>Maps controls to system implementation details</td>
-      <td><img src="https://img.shields.io/badge/Config-FBC02D" alt="Config"/></td>
+      <td>Maps NIST 800-53 controls to implementation responsibilities, evidence artifacts, and testing procedures</td>
+      <td><img src="https://img.shields.io/badge/Moderate%20%7C%20High-0A84FF" alt="Moderate | High"/></td>
     </tr>
-    <tr style="background-color: #FFF9C4;">
+    <tr style="background-color: #E8F5E9;">
       <td><code>fedramp-baseline-moderate.json</code></td>
       <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>FedRAMP Moderate impact baseline control definitions</td>
-      <td><img src="https://img.shields.io/badge/Config-FBC02D" alt="Config"/></td>
+      <td>Complete FedRAMP Moderate baseline control set (325 controls) with implementation requirements</td>
+      <td><img src="https://img.shields.io/badge/Moderate-0A84FF" alt="Moderate"/></td>
     </tr>
-    <tr style="background-color: #FFF9C4;">
+    <tr style="background-color: #E8F5E9;">
       <td><code>fedramp-baseline-high.json</code></td>
       <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>FedRAMP High impact baseline control definitions</td>
-      <td><img src="https://img.shields.io/badge/Config-FBC02D" alt="Config"/></td>
-    </tr>
-    <tr style="background-color: #EEEEEE;">
-      <td><code>README.md</code></td>
-      <td><img src="https://img.shields.io/badge/Markdown-000000?logo=markdown&logoColor=white" alt="Markdown"/></td>
-      <td>Comprehensive module documentation and usage guide</td>
-      <td><img src="https://img.shields.io/badge/Documentation-6C757D" alt="Documentation"/></td>
+      <td>Complete FedRAMP High baseline control set (421 controls) with enhanced security requirements</td>
+      <td><img src="https://img.shields.io/badge/High-FF3B30" alt="High"/></td>
     </tr>
   </tbody>
 </table>
 
 ---
 
-## 🚀 Usage Examples
-
-### Validate Controls Against Moderate Baseline
-```bash
-python3 fedramp-controls-validator.py \
-  --implemented implemented-controls.json \
-  --baseline fedramp-baseline-moderate.json \
-  --output validation-report.html
-```
-
-### Generate SSP Section with Mappings
-```bash
-python3 fedramp-ssp-generator.py \
-  --metadata system-metadata.json \
-  --controls fedramp-control-mapping.yaml \
-  --template ac-family-template.md \
-  --output SSP-AC-section.md
-```
-
-### Run Continuous Monitoring Validation
-```bash
-./continuous-monitoring-checker.sh \
-  --patch-level 14 \
-  --scan-report vulnerability-scan.json \
-  --log-status log-collection-status.json \
-  --output conmon-report.txt
-```
-
-### Validate Authorization Boundary
-```bash
-python3 fedramp-boundary-validator.py \
-  --inventory inventory.json \
-  --boundary-definition boundary.yaml \
-  --output boundary-validation.json
-```
-
-### Collect System Inventory
-```bash
-./fedramp-inventory-collector.sh \
-  --system-id SYS-12345 \
-  --output-format json \
-  --output system-inventory.json
-```
+This module provides **automated FedRAMP compliance validation** for **federal cloud service authorization** workflows, enabling continuous monitoring enforcement, System Security Plan generation, and POA&M lifecycle management across Moderate and High security baselines.
 
 ---
 
-This module provides **end-to-end automation** for FedRAMP compliance workflows, enabling consistent control validation, automated documentation generation, and continuous monitoring across Moderate and High impact systems for repeatable, auditable security operations.
-
----
-
-**Built for FedRAMP Cloud Security | Maintained by Suren Jewels**
+**Built for Federal Cloud Security Authorization | Maintained by Suren Jewels**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Suren--Jewels-181717?logo=github)](https://github.com/Suren-Jewels)
