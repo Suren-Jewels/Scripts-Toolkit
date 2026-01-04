@@ -1,0 +1,29 @@
+# NIST CSF Implementation Tier Definitions (Synthetic)
+# Designed for consumption by csf-maturity-assessment.py
+#
+# Tier scoring bands are illustrative and may be adapted.
+
+tiers:
+  "1":
+    name: "Tier 1 - Partial"
+    description: "Risk management practices are not formalized; limited awareness of cybersecurity risk."
+    min_score: 0.0
+    max_score: 1.0
+
+  "2":
+    name: "Tier 2 - Risk Informed"
+    description: "Risk management practices are approved by management but may not be established as organizational-wide policy."
+    min_score: 1.0
+    max_score: 2.25
+
+  "3":
+    name: "Tier 3 - Repeatable"
+    description: "Organization-wide policies are in place; cybersecurity practices are regularly updated based on risk management processes."
+    min_score: 2.25
+    max_score: 3.4
+
+  "4":
+    name: "Tier 4 - Adaptive"
+    description: "The organization adapts cybersecurity practices based on lessons learned and predictive indicators."
+    min_score: 3.4
+    max_score: 4.0
