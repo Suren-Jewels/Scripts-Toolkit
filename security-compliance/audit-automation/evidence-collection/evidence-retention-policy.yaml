@@ -1,0 +1,117 @@
+# evidence-retention-policy.yaml
+#
+# Defines default retention rules for collected evidence.
+# This file is meant to be consumed by automation/orchestration or
+# referenced manually during audits. No secrets should be stored here.
+
+policy:
+  name: "Default Evidence Retention Policy"
+  version: "1.0.0"
+  last_updated_utc: "2025-01-01T00:00:00Z"
+  owner:
+    team: "Security & Compliance"
+    contact_email: "security-compliance@example.com"
+
+defaults:
+  # Overall minimum retention period for all evidence types (in days)
+  minimum_retention_days: 365
+  # Preferred maximum retention before archiving or secure deletion (in days)
+  preferred_max_retention_days: 1095
+  # Whether to allow automated deletion when retention expires
+  allow_automatic_deletion: false
+
+categories:
+  logs:
+    description: "System and application logs collected for audit and incident response."
+    retention_days: 730
+    storage_tier: "warm"
+    encryption_required: true
+    access_controls:
+      - "security-team"
+      - "platform-engineering"
+    notes:
+      - "Logs may contain sensitive operational details and must be access-controlled."
+      - "Review legal hold requirements before deletion."
+
+  configs:
+    description: "System and application configuration snapshots."
+    retention_days: 365
+    storage_tier: "warm"
+    encryption_required: true
+    access_controls:
+      - "security-team"
+      - "infrastructure-team"
+    notes:
+      - "Snapshots support configuration drift analysis and incident reconstruction."
+
+  access_logs:
+    description: "Authentication, authorization, and API access logs."
+    retention_days: 730
+    storage_tier: "warm"
+    encryption_required: true
+    access_controls:
+      - "security-team"
+      - "identity-and-access-team"
+    notes:
+      - "Access logs are critical for forensic investigations and must be preserved per regulatory requirements."
+
+  change_records:
+    description: "Change management records (tickets, deployment logs, approvals)."
+    retention_days: 1095
+    storage_tier: "cold"
+    encryption_required: true
+    access_controls:
+      - "security-team"
+      - "change-management"
+    notes:
+      - "Supports audit trails for production changes and incident root-cause analyses."
+
+  vulnerability_scans:
+    description: "Vulnerability assessment and remediation evidence."
+    retention_days: 730
+    storage_tier: "cold"
+    encryption_required: true
+    access_controls:
+      - "security-team"
+      - "vulnerability-management"
+    notes:
+      - "Reports may contain detailed system information and should be tightly controlled."
+
+exceptions:
+  - name: "Active legal hold"
+    condition: "case_id != null"
+    description: >
+      When evidence relates to an active legal or regulatory case,
+      retention must be extended until explicit legal release.
+    override:
+      allow_automatic_deletion: false
+      # Do not delete until legal-hold-lifted flag is set by legal/compliance systems.
+      require_legal_approval: true
+
+  - name: "Critical incident"
+    condition: "incident_severity in ['SEV0', 'SEV1']"
+    description: >
+      For critical incidents, evidence retention may need to exceed
+      standard policy for post-incident reviews and audits.
+    override:
+      minimum_retention_days: 1825
+
+compliance_mappings:
+  - framework: "ISO 27001"
+    controls:
+      - "A.12.4.1"
+      - "A.16.1.7"
+  - framework: "NIST 800-53"
+    controls:
+      - "AU-11"
+      - "IR-5"
+  - framework: "SOC 2"
+    controls:
+      - "CC7.2"
+      - "CC7.3"
+
+audit:
+  # How often this policy should be reviewed
+  review_frequency_days: 365
+  last_reviewed_utc: "2025-01-01T00:00:00Z"
+  next_review_due_utc: "2026-01-01T00:00:00Z"
