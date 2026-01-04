@@ -1,0 +1,65 @@
+# Security Assessment Plan (SAP) Template
+# Synthetic, generic structure for planning NIST 800-53 assessments.
+# This is not an official template; it is designed to be automation-friendly
+# and human-readable.
+
+metadata:
+  system_name: "EXAMPLE-SYSTEM"
+  system_owner: "Owner Name"
+  assessment_id: "SAP-001"
+  assessment_date: "2025-01-01"
+  assessor_org: "Example Security Assessors, LLC"
+
+scope:
+  description: "Scope of assessment for NIST 800-53 controls."
+  boundaries:
+    - "Production VPC / VNet"
+    - "Management plane for cloud services"
+  exclusions:
+    - "Third-party systems outside contractual scope"
+    - "Legacy archival systems"
+
+assessment_team:
+  - role: "Lead Assessor"
+    name: "Assessor One"
+  - role: "Technical Assessor"
+    name: "Assessor Two"
+
+methodology:
+  approach:
+    - "Document review"
+    - "Technical testing"
+    - "Interviews"
+  references:
+    - "NIST SP 800-53 Rev 5"
+    - "NIST SP 800-53A Rev 5 (assessment procedures)"
+
+control_selection:
+  baseline_level: "MODERATE"   # LOW | MODERATE | HIGH
+  control_source: "control-catalog.json"
+  baseline_source: "baseline-low-moderate-high.yaml"
+
+test_procedures:
+  AC-2:
+    objective: "Verify account management is implemented per policy."
+    methods:
+      - "Review account creation and termination procedures."
+      - "Sample user accounts and validate recertification."
+    evidence:
+      - "Account management policy"
+      - "User access review reports"
+  AU-2:
+    objective: "Verify audit events are defined and logged."
+    methods:
+      - "Review logging configuration on key systems."
+      - "Inspect sample logs for required event types."
+    evidence:
+      - "Syslog configuration"
+      - "SIEM dashboards and reports"
+
+reporting:
+  deliverables:
+    - "Assessment report with findings and recommendations"
+    - "Updated POA&M for non-compliant controls"
+  classification: "Internal Use Only"
+  retention: "Minimum 3 years"
