@@ -1,45 +1,42 @@
 # 🏛️ FedRAMP Compliance Automation Module
 
-![Impact Level](https://img.shields.io/badge/Impact%20Level-IL4%20%7C%20IL5-0A84FF) ![Category](https://img.shields.io/badge/Category-Security%20%7C%20Compliance-34C759) ![Automation](https://img.shields.io/badge/Automation-Enabled-30D158) ![CUI](https://img.shields.io/badge/CUI-Handling%20Included-FFD60A)
+![Module](https://img.shields.io/badge/FedRAMP-Automation-0A84FF) ![Impact](https://img.shields.io/badge/Moderate%20%7C%20High-FFD60A) ![Category](https://img.shields.io/badge/Security%20%7C%20Compliance-34C759) ![Automation](https://img.shields.io/badge/Automated-30D158)
 
-A modular, capability-centric automation suite for **DoD Impact Level 4 (IL4)** and **Impact Level 5 (IL5)** compliance workflows. This module provides validators, auditors, classifiers, and continuous monitoring tooling designed for repeatable, auditable, and scalable compliance operations.
-
----
-
-## 🔗 Quick Links
+A modular, capability-centric automation suite for **FedRAMP Moderate/High** compliance workflows, providing validators, generators, collectors, and continuous monitoring tooling designed for repeatable, auditable, and scalable compliance operations.
 
 | Resource | Link |
 |----------|------|
-| **DoD Impact Levels** | https://dl.dod.cyber.mil/wp-content/uploads/cloud/SRG/index.html |
-| **CUI Program** | https://www.archives.gov/cui |
-| **NIST 800-171** | https://csrc.nist.gov/publications/detail/sp/800-171/rev-2/final |
-| **Suren Jewels GitHub** | https://github.com/Suren-Jewels |
+| FedRAMP Baselines | https://www.fedramp.gov |
+| NIST 800-53 Controls | https://csrc.nist.gov |
+| Documentation | https://docs.fedramp.gov |
+| GitHub | https://github.com/Suren-Jewels |
 
 ---
 
 ## 📊 Current Compliance Status
 ```
-IL4 Control Implementation      [████████████████████░░░░] 82% (140/170) ✓
-IL5 Control Implementation      [███████████████░░░░░░░░░] 58% (139/240) ⚠
+Control Implementation         [████████████████████░░░░] 85% (340/400)  ✓
+SSP Documentation Coverage     [███████████████████░░░░░] 78% (312/400)  ⚠
+POA&M Resolution Rate          [██████████████████░░░░░░] 72% (108/150)  ⚠
 ────────────────────────────────────────────────────────────────────────────
-Security Posture:
-  Encryption (FIPS-Approved)    [████████████████████████] 100%         ✓
-  Firewall Configuration        [███████████████████████░] 95%          ✓
-  Antivirus Protection          [██████████████████████░░] 90%          ✓
-  MFA Enforcement               [████████████████████░░░░] 85%          ✓
-  OS Patching Currency          [██████████████████░░░░░░] 75%          ⚠
+Continuous Monitoring:
+  Patch Currency               [████████████████████████] 98%            ✓
+  Vulnerability Scans          [███████████████████████░] 95%            ✓
+  Log Collection Status        [██████████████████████░░] 92%            ✓
 ────────────────────────────────────────────────────────────────────────────
-CUI Classification Coverage     [███████████████████░░░░░] 78%          ✓
+Boundary Validation            [████████████████████████] 100%           ✓
 ────────────────────────────────────────────────────────────────────────────
-Boundary Validation:
-  GCC High Enclave              [████████████████████████] 100%         ✓
-  DoD Cloud Environment         [███████████████████████░] 95%          ✓
-  NSC Boundary Compliance       [██████████████████████░░] 90%          ✓
+Control Families:
+  Access Control (AC)          [████████████████████████] 96%            ✓
+  Audit & Accountability (AU)  [███████████████████████░] 94%            ✓
+  Security Assessment (CA)     [██████████████████░░░░░░] 82%            ⚠
+  Config Management (CM)       [███████████████████████░] 91%            ✓
+  Incident Response (IR)       [████████████████████░░░░] 88%            ✓
 ────────────────────────────────────────────────────────────────────────────
-Monthly Trend:  ▁▂▃▅▆▇█  (Improving)
+Monthly Trend:  ▃▄▅▆▆▇█  (Improving)
 
 Risk Distribution:
-  Critical: 3  |  High: 12  |  Medium: 24  |  Low: 8  |  Info: 15
+  Critical: 2  |  High: 8  |  Medium: 28  |  Low: 45  |  Info: 67
 ```
 
 ---
@@ -47,77 +44,71 @@ Risk Distribution:
 ## 🗂️ Module Architecture
 ```mermaid
 graph TD
-    Root[🔐 IL4-IL5 Compliance Module]
+    Root[[🏛️ FedRAMP Compliance Module]]
     
-    Root --> Checkers[🔍 Compliance Checkers]
-    Root --> Validators[✓ Security Validators]
-    Root --> Auditors[📋 Audit Tools]
-    Root --> Config[⚙️ Configuration Files]
+    Root --> Category1[[🔍 Validators]]
+    Root --> Category2[[📘 Generators]]
+    Root --> Category3[[🛡️ Monitors]]
+    Root --> Category4[[📋 Configuration]]
     
-    Checkers --> C1[il4-compliance-checker.py]
-    Checkers --> C2[il5-compliance-checker.py]
-    Checkers --> C3[gcc-nsc-boundary-check.sh]
+    Category1 --> File1[fedramp-controls-validator.py]
+    Category1 --> File2[fedramp-boundary-validator.py]
     
-    Validators --> V1[il-posture-validator.py]
-    Validators --> V2[cui-data-classifier.py]
-    Validators --> V3[encryption-validator.sh]
+    Category2 --> File3[fedramp-ssp-generator.py]
+    Category2 --> File4[fedramp-poam-tracker.py]
     
-    Auditors --> A1[mfa-enforcement-audit.ps1]
-    Auditors --> A2[access-control-audit.py]
+    Category3 --> File5[continuous-monitoring-checker.sh]
+    Category3 --> File6[fedramp-inventory-collector.sh]
     
-    Config --> CF1[il4-control-matrix.yaml]
-    Config --> CF2[il5-control-matrix.yaml]
-    Config --> CF3[cui-handling-procedures.md]
+    Category4 --> Config1[fedramp-control-mapping.yaml]
+    Category4 --> Config2[fedramp-baseline-moderate.json]
+    Category4 --> Config3[fedramp-baseline-high.json]
     
-    C1 -.references.-> CF1
-    C2 -.references.-> CF2
-    V2 -.references.-> CF3
+    File1 -.references.-> Config2
+    File1 -.references.-> Config3
+    File3 -.references.-> Config1
     
-    style Checkers fill:#BBDEFB
-    style Validators fill:#FFE0B2
-    style Auditors fill:#E1BEE7
-    style Config fill:#FFF9C4
+    style Category1 fill:#BBDEFB
+    style Category2 fill:#FFE0B2
+    style Category3 fill:#E1BEE7
+    style Category4 fill:#FFF9C4
     
-    style C1 fill:#2196F3,color:#fff
-    style C2 fill:#2196F3,color:#fff
-    style C3 fill:#2196F3,color:#fff
+    style File1 fill:#2196F3,color:#fff
+    style File2 fill:#2196F3,color:#fff
+    style File3 fill:#FF9800,color:#fff
+    style File4 fill:#FF9800,color:#fff
+    style File5 fill:#9C27B0,color:#fff
+    style File6 fill:#9C27B0,color:#fff
     
-    style V1 fill:#FF9800,color:#fff
-    style V2 fill:#FF9800,color:#fff
-    style V3 fill:#FF9800,color:#fff
-    
-    style A1 fill:#9C27B0,color:#fff
-    style A2 fill:#9C27B0,color:#fff
-    
-    style CF1 fill:#FBC02D
-    style CF2 fill:#FBC02D
-    style CF3 fill:#FBC02D
+    style Config1 fill:#FBC02D
+    style Config2 fill:#FBC02D
+    style Config3 fill:#FBC02D
 ```
 
 ---
 
-## 🔄 Compliance Workflow
+## 🔄 FedRAMP Compliance Workflow
 ```mermaid
 flowchart LR
     subgraph INPUTS["📥 INPUTS"]
-        I1[Control Matrices<br/>IL4/IL5 Baselines]
-        I2[Device Configurations<br/>Security Settings]
-        I3[User Data<br/>Access Records]
-        I4[Cipher Configs<br/>FIPS Standards]
+        I1[System Metadata<br/>JSON Format]
+        I2[Implemented Controls<br/>Control List]
+        I3[Asset Inventory<br/>System Components]
+        I4[POA&M Data<br/>Remediation Status]
     end
     
     subgraph PROCESSING["⚙️ PROCESSING"]
-        P1[Control Validation<br/>Engine]
-        P2[Security Auditing<br/>Engine]
-        P3[CUI Classification<br/>Engine]
-        P4[Boundary Validation<br/>Engine]
+        P1[Control Validation<br/>Python Engine]
+        P2[SSP Generation<br/>Template Engine]
+        P3[Boundary Validation<br/>Comparison Logic]
+        P4[ConMon Checks<br/>Bash Scripts]
     end
     
     subgraph OUTPUTS["📤 OUTPUTS"]
-        O1[Compliance Reports<br/>IL4/IL5 Status]
-        O2[Security Findings<br/>Vulnerabilities]
-        O3[Metrics Dashboard<br/>KPIs & Trends]
-        O4[Audit Logs<br/>Activity Records]
+        O1[Compliance Reports<br/>JSON/HTML]
+        O2[SSP Sections<br/>Markdown/DOCX]
+        O3[Gap Analysis<br/>Spreadsheet]
+        O4[Monitoring Alerts<br/>Notifications]
     end
     
     I1 --> P1
@@ -137,42 +128,42 @@ flowchart LR
 
 ---
 
-## ⚙️ Validation Logic Flow
+## ⚙️ Control Validation Logic Flow
 ```mermaid
 flowchart TD
-    Start([Start Validation]) --> LoadBaseline[Load Control Baseline]
-    LoadBaseline --> LoadImplemented[Load Implemented Controls]
+    Start([Start Validation]) --> Step1[Load Baseline Configuration]
+    Step1 --> Step2[Initialize Control Repository]
     
-    LoadImplemented --> IterateControls{For Each Control}
+    Step2 --> Loop{For Each Control}
     
-    IterateControls -->|Next Control| CheckExists{Control<br/>Implemented?}
+    Loop -->|Next Control| Decision1{Control Implemented?}
     
-    CheckExists -->|No| MarkMissing[❌ Mark as Missing]
-    CheckExists -->|Yes| CheckStandard{Meets IL4/IL5<br/>Standard?}
+    Decision1 -->|No| Action1[❌ Flag Missing Control]
+    Decision1 -->|Yes| Decision2{Documentation Complete?}
     
-    CheckStandard -->|No| MarkNonCompliant[⚠️ Mark as Non-Compliant]
-    CheckStandard -->|Yes| MarkCompliant[✓ Mark as Compliant]
+    Decision2 -->|No| Action2[⚠️ Flag Incomplete Documentation]
+    Decision2 -->|Yes| Action3[✓ Mark Control Compliant]
     
-    MarkMissing --> CollectFindings[Collect Findings]
-    MarkNonCompliant --> CollectFindings
-    MarkCompliant --> CollectFindings
+    Action1 --> Collect[Collect Results]
+    Action2 --> Collect
+    Action3 --> Collect
     
-    CollectFindings --> MoreControls{More<br/>Controls?}
+    Collect --> MoreItems{More Controls?}
     
-    MoreControls -->|Yes| IterateControls
-    MoreControls -->|No| GenerateReport[Generate Compliance Report]
+    MoreItems -->|Yes| Loop
+    MoreItems -->|No| Generate[Generate Compliance Report]
     
-    GenerateReport --> CalculateMetrics[Calculate Compliance %]
-    CalculateMetrics --> OutputResults([📄 Output Results])
+    Generate --> Calculate[Calculate Coverage Metrics]
+    Calculate --> Output([📄 Output Validation Results])
     
     style Start fill:#4CAF50,color:#fff
-    style OutputResults fill:#4CAF50,color:#fff
-    style MarkCompliant fill:#4CAF50,color:#fff
-    style MarkNonCompliant fill:#FF9800,color:#fff
-    style MarkMissing fill:#F44336,color:#fff
-    style CheckExists fill:#2196F3,color:#fff
-    style CheckStandard fill:#2196F3,color:#fff
-    style MoreControls fill:#2196F3,color:#fff
+    style Output fill:#4CAF50,color:#fff
+    style Action3 fill:#4CAF50,color:#fff
+    style Action2 fill:#FF9800,color:#fff
+    style Action1 fill:#F44336,color:#fff
+    style Decision1 fill:#2196F3,color:#fff
+    style Decision2 fill:#2196F3,color:#fff
+    style MoreItems fill:#2196F3,color:#fff
 ```
 
 ---
@@ -181,32 +172,32 @@ flowchart TD
 ```mermaid
 sequenceDiagram
     participant User
-    participant Script
-    participant API
+    participant Validator
+    participant ConfigAPI
     participant Database
     
-    User->>Script: Execute Validation Run
-    Note over Script: Authentication Check
-    Script->>API: Request Control Baseline
-    API->>Database: Query IL4/IL5 Controls
-    Database-->>API: Return Control Set
-    API-->>Script: Control Baseline Data
+    User->>Validator: Run Compliance Check
+    Note over Validator: Load Baseline Controls
+    Validator->>ConfigAPI: Fetch Control Definitions
+    ConfigAPI->>Database: Query FedRAMP Baselines
+    Database-->>ConfigAPI: Return Control List
+    ConfigAPI-->>Validator: Control Definitions
     
-    Note over Script: Cache Baseline Locally
+    Note over Validator: Validate Implementations
     
-    Script->>API: Fetch Device Configurations
-    API->>Database: Query Device Data
-    Database-->>API: Return Device Info
-    API-->>Script: Device Configuration Data
+    Validator->>ConfigAPI: Fetch Implementation Data
+    ConfigAPI->>Database: Query System Controls
+    Database-->>ConfigAPI: Return Implementations
+    ConfigAPI-->>Validator: Implementation Details
     
-    Script->>Script: Run Validation Logic
+    Validator->>Validator: Calculate Compliance Gaps
     
-    Script->>API: Submit Validation Results
-    API->>Database: Store Compliance Status
-    Database-->>API: Confirmation
-    API-->>Script: Success Response
+    Validator->>ConfigAPI: Submit Results
+    ConfigAPI->>Database: Store Validation Report
+    Database-->>ConfigAPI: Confirmation
+    ConfigAPI-->>Validator: Success Response
     
-    Script-->>User: Display Report
+    Validator-->>User: Compliance Report Generated
 ```
 
 ---
@@ -219,87 +210,125 @@ sequenceDiagram
       <th>File</th>
       <th>Type</th>
       <th>Purpose</th>
-      <th>Impact Level</th>
+      <th>Category</th>
     </tr>
   </thead>
   <tbody>
     <tr style="background-color: #E3F2FD;">
-      <td><code>il4-compliance-checker.py</code></td>
+      <td><code>fedramp-controls-validator.py</code></td>
       <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Validates IL4 controls against baseline requirements</td>
-      <td><img src="https://img.shields.io/badge/IL4-0A84FF" alt="IL4"/></td>
+      <td>Validates implemented controls against FedRAMP baselines</td>
+      <td><img src="https://img.shields.io/badge/Validator-2196F3" alt="Validator"/></td>
     </tr>
     <tr style="background-color: #E3F2FD;">
-      <td><code>il5-compliance-checker.py</code></td>
+      <td><code>fedramp-boundary-validator.py</code></td>
       <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Validates IL5 controls against baseline requirements</td>
-      <td><img src="https://img.shields.io/badge/IL5-FF3B30" alt="IL5"/></td>
-    </tr>
-    <tr style="background-color: #FFF9C4;">
-      <td><code>cui-data-classifier.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Classifies data as CUI vs NON-CUI content</td>
-      <td><img src="https://img.shields.io/badge/BOTH-FFD60A" alt="BOTH"/></td>
-    </tr>
-    <tr style="background-color: #F3E5F5;">
-      <td><code>gcc-nsc-boundary-check.sh</code></td>
-      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
-      <td>Validates GCC High/NSC enclave boundary compliance</td>
-      <td><img src="https://img.shields.io/badge/BOTH-FFD60A" alt="BOTH"/></td>
-    </tr>
-    <tr style="background-color: #E8F5E9;">
-      <td><code>il-posture-validator.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Validates device security posture (encryption, firewall, AV, MFA, OS patching)</td>
-      <td><img src="https://img.shields.io/badge/BOTH-FFD60A" alt="BOTH"/></td>
-    </tr>
-    <tr style="background-color: #FCE4EC;">
-      <td><code>mfa-enforcement-audit.ps1</code></td>
-      <td><img src="https://img.shields.io/badge/PowerShell-5391FE?logo=powershell&logoColor=white" alt="PowerShell"/></td>
-      <td>Audits MFA enforcement policies across user accounts</td>
-      <td><img src="https://img.shields.io/badge/BOTH-FFD60A" alt="BOTH"/></td>
+      <td>Validates authorization boundary accuracy and completeness</td>
+      <td><img src="https://img.shields.io/badge/Validator-2196F3" alt="Validator"/></td>
     </tr>
     <tr style="background-color: #FFF3E0;">
-      <td><code>encryption-validator.sh</code></td>
-      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
-      <td>Validates FIPS 140-2/140-3 approved encryption algorithms</td>
-      <td><img src="https://img.shields.io/badge/BOTH-FFD60A" alt="BOTH"/></td>
-    </tr>
-    <tr style="background-color: #E0F7FA;">
-      <td><code>access-control-audit.py</code></td>
+      <td><code>fedramp-ssp-generator.py</code></td>
       <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Audits RBAC policies and privilege assignments</td>
-      <td><img src="https://img.shields.io/badge/BOTH-FFD60A" alt="BOTH"/></td>
+      <td>Auto-generates System Security Plan sections from templates</td>
+      <td><img src="https://img.shields.io/badge/Generator-FF9800" alt="Generator"/></td>
+    </tr>
+    <tr style="background-color: #FFF3E0;">
+      <td><code>fedramp-poam-tracker.py</code></td>
+      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
+      <td>Tracks and analyzes Plan of Action & Milestones status</td>
+      <td><img src="https://img.shields.io/badge/Generator-FF9800" alt="Generator"/></td>
+    </tr>
+    <tr style="background-color: #F3E5F5;">
+      <td><code>continuous-monitoring-checker.sh</code></td>
+      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
+      <td>Validates continuous monitoring requirements (patches, scans, logs)</td>
+      <td><img src="https://img.shields.io/badge/Monitor-9C27B0" alt="Monitor"/></td>
+    </tr>
+    <tr style="background-color: #F3E5F5;">
+      <td><code>fedramp-inventory-collector.sh</code></td>
+      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
+      <td>Collects system asset inventory and metadata</td>
+      <td><img src="https://img.shields.io/badge/Monitor-9C27B0" alt="Monitor"/></td>
+    </tr>
+    <tr style="background-color: #FFF9C4;">
+      <td><code>fedramp-control-mapping.yaml</code></td>
+      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
+      <td>Maps controls to system implementation details</td>
+      <td><img src="https://img.shields.io/badge/Config-FBC02D" alt="Config"/></td>
+    </tr>
+    <tr style="background-color: #FFF9C4;">
+      <td><code>fedramp-baseline-moderate.json</code></td>
+      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
+      <td>FedRAMP Moderate impact baseline control definitions</td>
+      <td><img src="https://img.shields.io/badge/Config-FBC02D" alt="Config"/></td>
+    </tr>
+    <tr style="background-color: #FFF9C4;">
+      <td><code>fedramp-baseline-high.json</code></td>
+      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
+      <td>FedRAMP High impact baseline control definitions</td>
+      <td><img src="https://img.shields.io/badge/Config-FBC02D" alt="Config"/></td>
     </tr>
     <tr style="background-color: #EEEEEE;">
-      <td><code>il4-control-matrix.yaml</code></td>
-      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>IL4 control requirements baseline (170 controls)</td>
-      <td><img src="https://img.shields.io/badge/IL4-0A84FF" alt="IL4"/></td>
-    </tr>
-    <tr style="background-color: #EEEEEE;">
-      <td><code>il5-control-matrix.yaml</code></td>
-      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>IL5 control requirements baseline (240 controls)</td>
-      <td><img src="https://img.shields.io/badge/IL5-FF3B30" alt="IL5"/></td>
-    </tr>
-    <tr style="background-color: #EEEEEE;">
-      <td><code>cui-handling-procedures.md</code></td>
-      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>Controlled Unclassified Information handling guidelines</td>
-      <td><img src="https://img.shields.io/badge/BOTH-FFD60A" alt="BOTH"/></td>
+      <td><code>README.md</code></td>
+      <td><img src="https://img.shields.io/badge/Markdown-000000?logo=markdown&logoColor=white" alt="Markdown"/></td>
+      <td>Comprehensive module documentation and usage guide</td>
+      <td><img src="https://img.shields.io/badge/Documentation-6C757D" alt="Documentation"/></td>
     </tr>
   </tbody>
 </table>
 
 ---
 
-## 🏁 Summary
+## 🚀 Usage Examples
 
-This module provides end-to-end automation for DoD Impact Level 4 and Impact Level 5 compliance workflows, enabling consistent, auditable, and repeatable security validation across DoD Cloud environments. The suite covers control validation, CUI classification, boundary checks, security posture assessment, and continuous monitoring capabilities required for GCC High and NSC enclave operations.
+### Validate Controls Against Moderate Baseline
+```bash
+python3 fedramp-controls-validator.py \
+  --implemented implemented-controls.json \
+  --baseline fedramp-baseline-moderate.json \
+  --output validation-report.html
+```
+
+### Generate SSP Section with Mappings
+```bash
+python3 fedramp-ssp-generator.py \
+  --metadata system-metadata.json \
+  --controls fedramp-control-mapping.yaml \
+  --template ac-family-template.md \
+  --output SSP-AC-section.md
+```
+
+### Run Continuous Monitoring Validation
+```bash
+./continuous-monitoring-checker.sh \
+  --patch-level 14 \
+  --scan-report vulnerability-scan.json \
+  --log-status log-collection-status.json \
+  --output conmon-report.txt
+```
+
+### Validate Authorization Boundary
+```bash
+python3 fedramp-boundary-validator.py \
+  --inventory inventory.json \
+  --boundary-definition boundary.yaml \
+  --output boundary-validation.json
+```
+
+### Collect System Inventory
+```bash
+./fedramp-inventory-collector.sh \
+  --system-id SYS-12345 \
+  --output-format json \
+  --output system-inventory.json
+```
 
 ---
 
-**Built for DoD Impact Level Compliance | Maintained by Suren Jewels**
+This module provides **end-to-end automation** for FedRAMP compliance workflows, enabling consistent control validation, automated documentation generation, and continuous monitoring across Moderate and High impact systems for repeatable, auditable security operations.
+
+---
+
+**Built for FedRAMP Cloud Security | Maintained by Suren Jewels**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Suren--Jewels-181717?logo=github)](https://github.com/Suren-Jewels)
