@@ -1,40 +1,53 @@
-# 🏛️ NIST 800-53 Security Controls Framework
+# 🏛️ NIST 800-53 Compliance Automation Module
 
-![Framework](https://img.shields.io/badge/Framework-NIST_800--53-0A84FF) ![Revision](https://img.shields.io/badge/Revision-Rev_5-34C759) ![Automation](https://img.shields.io/badge/Automation-Enabled-34C759) ![Controls](https://img.shields.io/badge/Controls-1200+-FFD60A)
+![Framework](https://img.shields.io/badge/Framework-NIST_800--53_Rev_5-0A84FF) ![Impact Level](https://img.shields.io/badge/Baselines-LOW_|_MOD_|_HIGH-34C759) ![Automation](https://img.shields.io/badge/Automation-Enabled-34C759) ![Assessment](https://img.shields.io/badge/Assessment-SAP_Ready-FFD60A)
 
-Comprehensive security and privacy control framework implementation toolkit for federal information systems and organizations, providing automated assessment, validation, and compliance monitoring capabilities across all 20 control families.
+Comprehensive NIST 800-53 Revision 5 compliance automation toolkit providing system scanning, control implementation validation, and security assessment planning for federal information systems across LOW, MODERATE, and HIGH impact baselines.
 
 | Resource | Link |
 |----------|------|
-| NIST 800-53 Official | https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final |
-| Control Catalog | https://csrc.nist.gov/projects/risk-management/sp800-53-controls/release-search |
-| Implementation Guide | https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53B.pdf |
+| NIST 800-53 Rev 5 | https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final |
+| Control Catalog | https://csrc.nist.gov/projects/cprt/catalog |
+| Assessment Procedures | https://csrc.nist.gov/publications/detail/sp/800-53a/rev-5/final |
 | GitHub Repository | https://github.com/Suren-Jewels/Scripts-Toolkit |
 
 ---
 
-## 📊 Current Implementation Status
+## 📊 Current Compliance Status
 ```
-Overall Control Coverage          [████████████████████░░░░] 83% (996/1200)  ✓
-Priority 1 Controls               [███████████████████████░] 95% (190/200)   ✓
+Overall Control Coverage          [████████████████████░░░░] 83% (298/358) ✓
+Security Assessment Readiness     [███████████████████░░░░░] 78% (42/54)   ⚠
 ────────────────────────────────────────────────────────────────────────────
-Technical Controls:
-  Access Control (AC)             [████████████████████████] 98% (24/25)     ✓
-  Audit & Accountability (AU)     [███████████████████████░] 94% (15/16)     ✓
-  Identification & Auth (IA)      [███████████████████████░] 92% (11/12)     ✓
-  System & Comms Protection (SC)  [██████████████████████░░] 89% (42/47)     ⚠
+Control Family Implementation:
+  Access Control (AC)             [████████████████████████] 95% (24/25)   ✓
+  Awareness & Training (AT)       [███████████████████████░] 92% (11/12)   ✓
+  Audit & Accountability (AU)     [██████████████████████░░] 88% (15/17)   ⚠
+  Security Assessment (CA)        [█████████████████░░░░░░░] 71% (10/14)   ⚠
+  Config Management (CM)          [███████████████████████░] 91% (20/22)   ✓
+  Contingency Planning (CP)       [██████████████████░░░░░░] 75% (9/12)    ⚠
+  Identification & Auth (IA)      [████████████████████████] 100% (12/12)  ✓
+  Incident Response (IR)          [████████████████████░░░░] 82% (9/11)    ⚠
+  Maintenance (MA)                [███████████████████████░] 93% (7/8)     ✓
+  Media Protection (MP)           [██████████████████████░░] 87% (7/8)     ⚠
+  Physical & Env (PE)             [█████████████████░░░░░░░] 68% (13/19)   ⚠
+  Planning (PL)                   [████████████████████████] 100% (9/9)    ✓
+  Personnel Security (PS)         [███████████████████████░] 90% (9/10)    ✓
+  Risk Assessment (RA)            [██████████████████████░░] 86% (6/7)     ⚠
+  System & Services (SA)          [████████████████████░░░░] 79% (19/24)   ⚠
+  System & Comms (SC)             [█████████████████░░░░░░░] 73% (30/41)   ⚠
+  System & Info Integrity (SI)    [██████████████████████░░] 85% (17/20)   ⚠
 ────────────────────────────────────────────────────────────────────────────
-Automated Assessment Coverage     [███████████████████░░░░░] 78% (936/1200)  ✓
+Baseline Readiness                [███████████████████░░░░░] 81% (3/4)     ⚠
 ────────────────────────────────────────────────────────────────────────────
-Operational Controls:
-  Configuration Management (CM)   [███████████████████████░] 91% (13/14)     ✓
-  Incident Response (IR)          [███████████████████████░] 93% (9/10)      ✓
-  Maintenance (MA)                [██████████████████████░░] 86% (6/7)       ⚠
+Impact Level Coverage:
+  LOW Baseline                    [████████████████████████] 97% (107/110) ✓
+  MODERATE Baseline               [███████████████████░░░░░] 79% (245/310) ⚠
+  HIGH Baseline                   [█████████████████░░░░░░░] 70% (250/358) ⚠
 ────────────────────────────────────────────────────────────────────────────
 Monthly Trend:  ▃▄▅▆▇▇█  (Improving)
 
-Control Maturity Distribution:
-  Fully Implemented: 723  |  Partially Implemented: 273  |  Planned: 147  |  Not Applicable: 42  |  Not Started: 15
+Risk Distribution:
+  Critical: 12  |  High: 28  |  Medium: 45  |  Low: 87  |  Minimal: 126
 ```
 
 ---
@@ -42,78 +55,65 @@ Control Maturity Distribution:
 ## 🗂️ Module Architecture
 ```mermaid
 graph TD
-    Root[[🏛️ NIST 800-53 Framework]]
+    Root[[🏛️ NIST 800-53 Module]]
     
-    Root --> Category1[[🔍 Assessment & Validation]]
-    Root --> Category2[[📋 Control Management]]
-    Root --> Category3[[📊 Reporting & Analytics]]
-    Root --> Category4[[⚙️ Configuration]]
+    Root --> Scanner[[🔍 System Scanner]]
+    Root --> Validator[[✅ Control Validator]]
+    Root --> Assessor[[📋 Assessment Tools]]
+    Root --> Reference[[📚 Reference Data]]
     
-    Category1 --> File1[control-validator.py]
-    Category1 --> File2[baseline-assessor.sh]
-    Category1 --> File3[gap-analyzer.py]
+    Scanner --> File1[nist-800-53-scanner.py]
     
-    Category2 --> File4[control-mapper.py]
-    Category2 --> File5[inheritance-tracker.sh]
-    Category2 --> File6[evidence-collector.py]
+    Validator --> File2[control-implementation-check.sh]
     
-    Category3 --> File7[compliance-reporter.py]
-    Category3 --> File8[dashboard-generator.sh]
-    Category3 --> File9[metrics-analyzer.py]
+    Assessor --> File3[security-assessment-plan.yaml]
     
-    Category4 --> Config1[baselines.yaml]
-    Category4 --> Config2[control-catalog.json]
-    Category4 --> Config3[assessment-parameters.conf]
+    Reference --> Config1[control-catalog.json]
+    Reference --> Config2[baseline-low-moderate-high.yaml]
     
+    File1 -.references.-> Config1
     File1 -.references.-> Config2
     File2 -.references.-> Config1
-    File4 -.references.-> Config2
-    File7 -.references.-> Config3
+    File3 -.references.-> Config1
+    File3 -.references.-> Config2
     
-    style Category1 fill:#BBDEFB
-    style Category2 fill:#FFE0B2
-    style Category3 fill:#E1BEE7
-    style Category4 fill:#FFF9C4
+    style Scanner fill:#BBDEFB
+    style Validator fill:#FFE0B2
+    style Assessor fill:#E1BEE7
+    style Reference fill:#FFF9C4
     
     style File1 fill:#2196F3,color:#fff
-    style File2 fill:#2196F3,color:#fff
-    style File3 fill:#2196F3,color:#fff
-    style File4 fill:#FF9800,color:#fff
-    style File5 fill:#FF9800,color:#fff
-    style File6 fill:#FF9800,color:#fff
-    style File7 fill:#9C27B0,color:#fff
-    style File8 fill:#9C27B0,color:#fff
-    style File9 fill:#9C27B0,color:#fff
+    style File2 fill:#FF9800,color:#fff
+    style File3 fill:#9C27B0,color:#fff
     
     style Config1 fill:#FBC02D
     style Config2 fill:#FBC02D
-    style Config3 fill:#FBC02D
 ```
 
 ---
 
-## 🔄 Control Assessment Workflow
+## 🔄 NIST 800-53 Assessment Workflow
 ```mermaid
 flowchart LR
     subgraph INPUTS["📥 INPUTS"]
-        I1[System Configs<br/>Infrastructure Data]
-        I2[Policy Documents<br/>Procedures]
-        I3[Security Logs<br/>Audit Trails]
-        I4[Control Baselines<br/>Requirements]
+        I1[System Inventory<br/>Assets & Components]
+        I2[Control Catalog<br/>NIST 800-53 Rev 5]
+        I3[Impact Baseline<br/>LOW/MOD/HIGH]
+        I4[Assessment Plan<br/>SAP Template]
     end
     
     subgraph PROCESSING["⚙️ PROCESSING"]
-        P1[Automated Scanning<br/>Validation Engine]
-        P2[Policy Analysis<br/>Document Parser]
-        P3[Log Correlation<br/>Evidence Collector]
-        P4[Gap Assessment<br/>Compliance Engine]
+        P1[System Scanning<br/>Python Engine]
+        P2[Control Validation<br/>Bash Checker]
+        P3[Baseline Mapping<br/>YAML Parser]
+        P4[Assessment Prep<br/>SAP Generator]
     end
     
     subgraph OUTPUTS["📤 OUTPUTS"]
-        O1[Control Status<br/>JSON/YAML]
-        O2[Compliance Report<br/>PDF/HTML]
-        O3[Evidence Package<br/>Archive]
-        O4[Remediation Plan<br/>Markdown]
+        O1[Compliance Report<br/>JSON/HTML]
+        O2[Control Status<br/>PASS/FAIL/NA]
+        O3[Gap Analysis<br/>Remediation Plan]
+        O4[SAP Package<br/>Assessment Ready]
     end
     
     I1 --> P1
@@ -133,58 +133,48 @@ flowchart LR
 
 ---
 
-## ⚙️ Control Validation Logic Flow
+## ⚙️ Control Implementation Logic Flow
 ```mermaid
 flowchart TD
-    Start([Start Assessment]) --> Step1[Load Control Catalog & Baseline]
-    Step1 --> Step2[Initialize Assessment Framework]
+    Start([Start Compliance Scan]) --> Step1[Load Control Catalog & Baselines]
+    Step1 --> Step2[Initialize System Inventory]
     
-    Step2 --> Loop{For Each Control}
+    Step2 --> Loop{For Each Control Family}
     
-    Loop -->|Next Control| Decision1{Technical Control?}
+    Loop -->|Next Family| Decision1{Control Applicable?}
     
-    Decision1 -->|No| Decision2{Operational Control?}
-    Decision1 -->|Yes| AutoTest[Run Automated Tests]
+    Decision1 -->|No| Action1[❌ Mark as Not Applicable]
+    Decision1 -->|Yes| Decision2{Evidence Found?}
     
-    Decision2 -->|No| ManualReview[Schedule Manual Review]
-    Decision2 -->|Yes| PolicyCheck[Verify Policies/Procedures]
+    Decision2 -->|No| Action2[⚠️ Mark as Gap/Missing]
+    Decision2 -->|Yes| Decision3{Meets Baseline?}
     
-    AutoTest --> TestResult{Tests Pass?}
-    
-    TestResult -->|No| Action1[❌ Mark as Non-Compliant]
-    TestResult -->|Partial| Action2[⚠️ Mark as Partially Compliant]
-    TestResult -->|Yes| Action3[✓ Mark as Compliant]
-    
-    PolicyCheck --> PolicyResult{Evidence Adequate?}
-    
-    PolicyResult -->|No| Action1
-    PolicyResult -->|Partial| Action2
-    PolicyResult -->|Yes| Action3
-    
-    ManualReview --> Action2
+    Decision3 -->|No| Action3[⚠️ Mark as Partial]
+    Decision3 -->|Yes| Action4[✓ Mark as Implemented]
     
     Action1 --> Collect[Collect Assessment Data]
     Action2 --> Collect
     Action3 --> Collect
+    Action4 --> Collect
     
     Collect --> MoreControls{More Controls?}
     
     MoreControls -->|Yes| Loop
     MoreControls -->|No| Generate[Generate Compliance Report]
     
-    Generate --> Calculate[Calculate Baseline Coverage]
-    Calculate --> CreatePOAM[Create POA&M for Gaps]
-    CreatePOAM --> Output([📄 Assessment Package])
+    Generate --> Calculate[Calculate Coverage Metrics]
+    Calculate --> Risk[Identify Risk Areas]
+    Risk --> Output([📄 Output Assessment Package])
     
     style Start fill:#4CAF50,color:#fff
     style Output fill:#4CAF50,color:#fff
-    style Action3 fill:#4CAF50,color:#fff
+    style Action4 fill:#4CAF50,color:#fff
     style Action2 fill:#FF9800,color:#fff
+    style Action3 fill:#FF9800,color:#fff
     style Action1 fill:#F44336,color:#fff
     style Decision1 fill:#2196F3,color:#fff
     style Decision2 fill:#2196F3,color:#fff
-    style TestResult fill:#2196F3,color:#fff
-    style PolicyResult fill:#2196F3,color:#fff
+    style Decision3 fill:#2196F3,color:#fff
     style MoreControls fill:#2196F3,color:#fff
 ```
 
@@ -193,33 +183,37 @@ flowchart TD
 ## 🔗 System Integration
 ```mermaid
 sequenceDiagram
-    participant Assessor
-    participant Framework
+    participant Admin
     participant Scanner
-    participant Database
+    participant Catalog
+    participant System
     
-    Assessor->>Framework: Initiate Assessment
-    Note over Framework: Load Control Baseline
-    Framework->>Scanner: Request System Scan
-    Scanner->>Database: Query Current Configurations
-    Database-->>Scanner: Configuration Data
-    Scanner-->>Framework: Scan Results
+    Admin->>Scanner: Execute nist-800-53-scanner.py
+    Note over Scanner: Load Configuration<br/>Parse Arguments
+    Scanner->>Catalog: Request Control Definitions
+    Catalog-->>Scanner: Return Rev 5 Controls (358)
     
-    Note over Framework: Validate Against Controls
+    Scanner->>Catalog: Request Baseline Mappings
+    Catalog-->>Scanner: Return LOW/MOD/HIGH Baselines
     
-    Framework->>Scanner: Request Evidence Collection
-    Scanner->>Database: Query Audit Logs
-    Database-->>Scanner: Audit Evidence
-    Scanner-->>Framework: Evidence Package
+    Note over Scanner: Select Target Baseline<br/>(User Specified)
     
-    Framework->>Framework: Calculate Compliance Score
+    Scanner->>System: Query System Configurations
+    System-->>Scanner: Return Config Files & Logs
     
-    Framework->>Database: Store Assessment Results
-    Database-->>Framework: Confirmation
+    Scanner->>System: Check Security Implementations
+    System-->>Scanner: Return Evidence Data
     
-    Framework->>Framework: Generate Reports
+    Scanner->>Scanner: Map Evidence to Controls
+    Scanner->>Scanner: Calculate Compliance Percentage
     
-    Framework-->>Assessor: Assessment Package & POA&M
+    Note over Scanner: Generate Gap Analysis<br/>Identify Remediations
+    
+    Scanner->>Catalog: Store Assessment Results
+    Catalog-->>Scanner: Confirmation
+    
+    Scanner-->>Admin: Compliance Report (JSON/HTML)
+    Scanner-->>Admin: Remediation Recommendations
 ```
 
 ---
@@ -232,91 +226,49 @@ sequenceDiagram
       <th>File</th>
       <th>Type</th>
       <th>Purpose</th>
-      <th>Control Family</th>
+      <th>Control Category</th>
     </tr>
   </thead>
   <tbody>
     <tr style="background-color: #E3F2FD;">
-      <td><code>control-validator.py</code></td>
+      <td><code>nist-800-53-scanner.py</code></td>
       <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Automated validation of technical controls against implementation requirements</td>
-      <td><img src="https://img.shields.io/badge/Assessment-0A84FF" alt="Assessment"/></td>
-    </tr>
-    <tr style="background-color: #E3F2FD;">
-      <td><code>baseline-assessor.sh</code></td>
-      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
-      <td>Evaluates system compliance against LOW/MODERATE/HIGH baselines</td>
-      <td><img src="https://img.shields.io/badge/Assessment-0A84FF" alt="Assessment"/></td>
-    </tr>
-    <tr style="background-color: #E3F2FD;">
-      <td><code>gap-analyzer.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Identifies control gaps and generates remediation recommendations</td>
-      <td><img src="https://img.shields.io/badge/Assessment-0A84FF" alt="Assessment"/></td>
+      <td>Automated system scanner for NIST 800-53 Rev 5 compliance assessment across all 20 control families and impact baselines</td>
+      <td><img src="https://img.shields.io/badge/Scanner-0A84FF" alt="Scanner"/></td>
     </tr>
     <tr style="background-color: #FFF3E0;">
-      <td><code>control-mapper.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Maps controls across frameworks (FedRAMP, CMMC, ISO 27001)</td>
-      <td><img src="https://img.shields.io/badge/Management-FF9800" alt="Management"/></td>
-    </tr>
-    <tr style="background-color: #FFF3E0;">
-      <td><code>inheritance-tracker.sh</code></td>
+      <td><code>control-implementation-check.sh</code></td>
       <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
-      <td>Tracks inherited controls from cloud providers and third parties</td>
-      <td><img src="https://img.shields.io/badge/Management-FF9800" alt="Management"/></td>
-    </tr>
-    <tr style="background-color: #FFF3E0;">
-      <td><code>evidence-collector.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Automates collection and organization of control evidence artifacts</td>
-      <td><img src="https://img.shields.io/badge/Management-FF9800" alt="Management"/></td>
+      <td>Shell-based validator for verifying control implementation evidence against security requirements and baseline specifications</td>
+      <td><img src="https://img.shields.io/badge/Validator-34C759" alt="Validator"/></td>
     </tr>
     <tr style="background-color: #F3E5F5;">
-      <td><code>compliance-reporter.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Generates executive summaries and detailed compliance reports</td>
-      <td><img src="https://img.shields.io/badge/Reporting-9C27B0" alt="Reporting"/></td>
-    </tr>
-    <tr style="background-color: #F3E5F5;">
-      <td><code>dashboard-generator.sh</code></td>
-      <td><img src="https://img.shields.io/badge/Bash-4EAA25?logo=gnu-bash&logoColor=white" alt="Bash"/></td>
-      <td>Creates interactive HTML dashboards for compliance metrics</td>
-      <td><img src="https://img.shields.io/badge/Reporting-9C27B0" alt="Reporting"/></td>
-    </tr>
-    <tr style="background-color: #F3E5F5;">
-      <td><code>metrics-analyzer.py</code></td>
-      <td><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python"/></td>
-      <td>Analyzes compliance trends and calculates risk-based metrics</td>
-      <td><img src="https://img.shields.io/badge/Reporting-9C27B0" alt="Reporting"/></td>
-    </tr>
-    <tr style="background-color: #FFF9C4;">
-      <td><code>baselines.yaml</code></td>
-      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>Defines LOW/MODERATE/HIGH baseline control sets per NIST 800-53B</td>
-      <td><img src="https://img.shields.io/badge/Configuration-FFD60A" alt="Configuration"/></td>
+      <td><code>security-assessment-plan.yaml</code></td>
+      <td><img src="https://img.shields.io/badge/YAML-CB171E?logo=yaml&logoColor=white" alt="YAML"/></td>
+      <td>Security Assessment Plan (SAP) template for NIST 800-53A assessment procedures, including test methods and evaluation criteria</td>
+      <td><img src="https://img.shields.io/badge/Assessment-FFD60A" alt="Assessment"/></td>
     </tr>
     <tr style="background-color: #FFF9C4;">
       <td><code>control-catalog.json</code></td>
-      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>Complete NIST 800-53 Rev 5 control catalog with enhancements</td>
-      <td><img src="https://img.shields.io/badge/Configuration-FFD60A" alt="Configuration"/></td>
+      <td><img src="https://img.shields.io/badge/JSON-000000?logo=json&logoColor=white" alt="JSON"/></td>
+      <td>Complete NIST 800-53 Revision 5 control catalog with 358 controls, enhancements, and supplemental guidance structured for automation</td>
+      <td><img src="https://img.shields.io/badge/Reference-6C757D" alt="Reference"/></td>
     </tr>
     <tr style="background-color: #FFF9C4;">
-      <td><code>assessment-parameters.conf</code></td>
-      <td><img src="https://img.shields.io/badge/Config-6C757D" alt="Config"/></td>
-      <td>Assessment thresholds, scoring weights, and reporting preferences</td>
-      <td><img src="https://img.shields.io/badge/Configuration-FFD60A" alt="Configuration"/></td>
+      <td><code>baseline-low-moderate-high.yaml</code></td>
+      <td><img src="https://img.shields.io/badge/YAML-CB171E?logo=yaml&logoColor=white" alt="YAML"/></td>
+      <td>Security control baselines for LOW (110 controls), MODERATE (310 controls), and HIGH (358 controls) impact information systems</td>
+      <td><img src="https://img.shields.io/badge/Reference-6C757D" alt="Reference"/></td>
     </tr>
   </tbody>
 </table>
 
 ---
 
-This module provides **automated assessment and continuous monitoring** for **NIST 800-53 security controls** workflows, enabling comprehensive baseline evaluation, cross-framework mapping, and evidence-based compliance reporting across all 20 control families and 1,200+ individual controls.
+This module provides **automated NIST 800-53 Rev 5 compliance assessment** for **federal information systems** workflows, enabling control validation, baseline mapping, and security assessment planning across LOW, MODERATE, and HIGH impact baselines with comprehensive gap analysis and remediation guidance.
 
 ---
 
-**Built for Federal Information Security Compliance | Maintained by Suren Jewels**
+**Built for Federal Security Compliance | Maintained by Suren Jewels**
 
 [![GitHub](https://img.shields.io/badge/GitHub-Suren--Jewels-181717?logo=github)](https://github.com/Suren-Jewels)
