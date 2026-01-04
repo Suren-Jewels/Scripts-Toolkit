@@ -1,0 +1,66 @@
+{
+  "version": "rev5-synthetic",
+  "source": "Synthetic example for automation tooling",
+  "controls": {
+    "AC-1": {
+      "family": "Access Control",
+      "title": "Access Control Policy and Procedures",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "AC-2": {
+      "family": "Access Control",
+      "title": "Account Management",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "AC-3": {
+      "family": "Access Control",
+      "title": "Access Enforcement",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "AU-2": {
+      "family": "Audit and Accountability",
+      "title": "Event Logging",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "AU-6": {
+      "family": "Audit and Accountability",
+      "title": "Audit Review, Analysis, and Reporting",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "CM-2": {
+      "family": "Configuration Management",
+      "title": "Baseline Configuration",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "CP-9": {
+      "family": "Contingency Planning",
+      "title": "System Backup",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "IA-2": {
+      "family": "Identification and Authentication",
+      "title": "Identification and Authentication (Organizational Users)",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "SC-7": {
+      "family": "System and Communications Protection",
+      "title": "Boundary Protection",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    },
+    "SI-2": {
+      "family": "System and Information Integrity",
+      "title": "Flaw Remediation",
+      "priority": "P1",
+      "baseline": ["LOW", "MODERATE", "HIGH"]
+    }
+  }
+}
