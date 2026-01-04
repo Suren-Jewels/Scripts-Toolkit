@@ -1,0 +1,35 @@
+# IL5 Control Matrix
+# Synthetic example: maps IL5 controls to requirement summaries.
+
+impact_level: IL5
+controls:
+  AC-2:
+    description: "Account management for IL5 users and devices"
+    requirement: "Tightly controlled provisioning with elevated monitoring"
+  AC-3:
+    description: "Access enforcement"
+    requirement: "Strict least privilege and Just‑In‑Time access"
+  AC-6:
+    description: "Least privilege"
+    requirement: "Documented and enforced least privilege for admin roles"
+  AU-2:
+    description: "Audit event definition"
+    requirement: "Comprehensive logging with retention suitable for IL5"
+  AU-6:
+    description: "Audit review, analysis, and reporting"
+    requirement: "Daily review and alerting of IL5 audit logs"
+  CM-6:
+    description: "Configuration settings"
+    requirement: "IL5‑specific secure configuration settings enforced"
+  CP-9:
+    description: "System backup"
+    requirement: "Redundant, encrypted backups in IL5‑authorized regions"
+  IA-2:
+    description: "Identification and authentication"
+    requirement: "Strong MFA with phishing‑resistant methods preferred"
+  SC-7:
+    description: "Boundary protection"
+    requirement: "Enhanced boundary protections for IL5 enclaves"
+  SI-4:
+    description: "System monitoring"
+    requirement: "24/7 security monitoring for IL5 systems"
