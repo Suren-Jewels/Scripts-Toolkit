@@ -1,0 +1,94 @@
+# NIST RMF Workflow Definition (Synthetic)
+# Designed to align with:
+# - rmf-step-tracker.py
+# - categorize-system.py
+# - select-controls.sh
+# - ato-readiness-checker.py
+#
+# This file documents the RMF steps, expected artifacts, and example automation hooks.
+
+rmf_workflow:
+  system_id: "EXAMPLE-SYSTEM"
+  owner: "System Owner Name"
+  environment: "Production"
+  classification: "Internal Use Only"
+
+  steps:
+    - id: "1-Categorize"
+      name: "Categorize System"
+      description: "Determine system impact level per FIPS 199."
+      inputs:
+        - "Business impact analysis"
+        - "System security context"
+      automation:
+        - script: "categorize-system.py"
+          description: "Computes FIPS 199 impact using CLI or JSON."
+      outputs:
+        - "FIPS 199 impact level (LOW/MODERATE/HIGH)"
+        - "Updated RMF state (rmf-state.json)"
+
+    - id: "2-Select"
+      name: "Select Security Controls"
+      description: "Select baseline controls appropriate for categorized impact level."
+      inputs:
+        - "FIPS 199 categorization"
+        - "Control catalog and overlays"
+      automation:
+        - script: "select-controls.sh"
+          description: "Extracts controls from baseline definition for given impact level."
+      outputs:
+        - "Control selection list"
+        - "Initial control tailoring notes"
+
+    - id: "3-Implement"
+      name: "Implement Security Controls"
+      description: "Implement selected controls and document implementation details."
+      inputs:
+        - "Control selection list"
+      automation:
+        - script: "custom-control-implementation-scripts"
+          description: "Organization-specific automation for control implementation."
+      outputs:
+        - "Implemented controls inventory"
+        - "Updated system security plan (SSP)"
+
+    - id: "4-Assess"
+      name: "Assess Security Controls"
+      description: "Assess control implementation effectiveness and document findings."
+      inputs:
+        - "SSP"
+        - "Implemented controls inventory"
+      automation:
+        - script: "assessment-scripts-or-tools"
+          description: "Organization-specific technical assessment tooling."
+      outputs:
+        - "Security Assessment Report (SAR)"
+        - "POA&M for identified findings"
+
+    - id: "5-Authorize"
+      name: "Authorize System"
+      description: "Risk-based decision to authorize system operation."
+      inputs:
+        - "SAR"
+        - "POA&M"
+        - "ATO readiness assessment"
+      automation:
+        - script: "ato-readiness-checker.py"
+          description: "Performs lightweight readiness scoring based on coverage, POA&M, and documentation."
+      outputs:
+        - "ATO decision (Approve/Reject/Interim)"
+        - "Authorization letter"
+
+    - id: "6-Monitor"
+      name: "Monitor Security Controls"
+      description: "Continuous monitoring and ongoing authorization activities."
+      inputs:
+        - "Monitoring strategy"
+        - "Security event data"
+      automation:
+        - script: "continuous-monitoring-tooling"
+          description: "SIEM, vulnerability management, and configuration monitoring tools."
+      outputs:
+        - "Updated POA&M"
+        - "Periodic assessment updates"
+        - "Authorization status reviews"
