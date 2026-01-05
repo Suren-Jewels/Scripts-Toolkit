@@ -1,0 +1,73 @@
+{
+  "id": null,
+  "uid": "compliance-dashboard",
+  "title": "Compliance Overview Dashboard",
+  "tags": ["compliance", "executive", "security"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5m",
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Overall Compliance Score",
+      "datasource": "${DS_COMPLIANCE}",
+      "targets": [
+        {
+          "refId": "A",
+          "format": "time_series",
+          "expr": "avg(compliance_score)"
+        }
+      ],
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "center"
+      },
+      "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 }
+    },
+    {
+      "id": 2,
+      "type": "bargauge",
+      "title": "Compliance by Domain",
+      "datasource": "${DS_COMPLIANCE}",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "group by domain avg(compliance_score)"
+        }
+      ],
+      "options": {
+        "orientation": "horizontal",
+        "displayMode": "gradient"
+      },
+      "gridPos": { "x": 6, "y": 0, "w": 12, "h": 4 }
+    },
+    {
+      "id": 3,
+      "type": "table",
+      "title": "Top Failing Controls",
+      "datasource": "${DS_COMPLIANCE}",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "select control_id, description, score where score < 0.7 order by score asc limit 20"
+        }
+      ],
+      "gridPos": { "x": 0, "y": 4, "w": 24, "h": 8 }
+    }
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "domain",
+        "type": "query",
+        "datasource": "${DS_COMPLIANCE}",
+        "query": "show domains",
+        "includeAll": true,
+        "multi": true
+      }
+    ]
+  }
+}
