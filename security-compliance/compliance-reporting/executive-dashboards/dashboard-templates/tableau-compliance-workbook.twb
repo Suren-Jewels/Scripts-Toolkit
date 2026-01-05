@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<workbook xmlns="http://tableausoftware.com/xml/user" version="2022.1">
+  <datasources>
+    <datasource name="ComplianceData" version="18.1">
+      <connection class="sqlproxy" dbname="compliance" />
+      <metadata-records>
+        <metadata-record class="column">
+          <remote-name>domain</remote-name>
+          <local-name>Domain</local-name>
+          <datatype>string</datatype>
+        </metadata-record>
+        <metadata-record class="column">
+          <remote-name>control_id</remote-name>
+          <local-name>Control ID</local-name>
+          <datatype>string</datatype>
+        </metadata-record>
+        <metadata-record class="column">
+          <remote-name>score</remote-name>
+          <local-name>Score</local-name>
+          <datatype>real</datatype>
+        </metadata-record>
+      </metadata-records>
+    </datasource>
+  </datasources>
+
+  <worksheets>
+    <worksheet name="Compliance Overview">
+      <table>
+        <view>
+          <datasource-dependencies datasource="ComplianceData">
+            <column name="domain" />
+            <column name="score" />
+          </datasource-dependencies>
+        </view>
+      </table>
+    </worksheet>
+
+    <worksheet name="Failing Controls">
+      <table>
+        <view>
+          <datasource-dependencies datasource="ComplianceData">
+            <column name="control_id" />
+            <column name="score" />
+          </datasource-dependencies>
+        </view>
+      </table>
+    </worksheet>
+  </worksheets>
+
+  <dashboard name="Executive Compliance Dashboard">
+    <zone type="layout" id="1">
+      <zone type="worksheet" name="Compliance Overview" />
+      <zone type="worksheet" name="Failing Controls" />
+    </zone>
+  </dashboard>
+</workbook>
