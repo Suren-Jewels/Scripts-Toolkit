@@ -1,0 +1,59 @@
+{
+  "name": "Compliance Executive Dashboard",
+  "pages": [
+    {
+      "name": "Overview",
+      "displayName": "Compliance Overview",
+      "visualContainers": [
+        {
+          "name": "overallScoreCard",
+          "type": "card",
+          "position": { "x": 20, "y": 20, "z": 0, "width": 300, "height": 150 },
+          "config": {
+            "singleVisual": {
+              "visualType": "card",
+              "projections": {
+                "Values": [
+                  {
+                    "queryRef": "Overall Compliance Score"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "name": "domainBarChart",
+          "type": "clusteredBarChart",
+          "position": { "x": 20, "y": 200, "z": 0, "width": 600, "height": 350 },
+          "config": {
+            "singleVisual": {
+              "visualType": "clusteredBarChart",
+              "projections": {
+                "Category": [{ "queryRef": "ComplianceScores[Domain]" }],
+                "Values": [{ "queryRef": "ComplianceScores[Score]" }]
+              }
+            }
+          }
+        },
+        {
+          "name": "failingControlsTable",
+          "type": "tableEx",
+          "position": { "x": 650, "y": 20, "z": 0, "width": 600, "height": 530 },
+          "config": {
+            "singleVisual": {
+              "visualType": "tableEx",
+              "projections": {
+                "Values": [
+                  { "queryRef": "ComplianceScores[ControlID]" },
+                  { "queryRef": "ComplianceScores[Description]" },
+                  { "queryRef": "ComplianceScores[Score]" }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
