@@ -1,0 +1,29 @@
+{
+  "name": "ComplianceModel",
+  "compatibilityLevel": 1560,
+  "model": {
+    "tables": [
+      {
+        "name": "ComplianceScores",
+        "columns": [
+          { "name": "Domain", "dataType": "string" },
+          { "name": "ControlID", "dataType": "string" },
+          { "name": "Description", "dataType": "string" },
+          { "name": "Score", "dataType": "double" },
+          { "name": "UpdatedAt", "dataType": "datetime" }
+        ]
+      }
+    ],
+    "measures": [
+      {
+        "name": "Overall Compliance Score",
+        "expression": "AVERAGE(ComplianceScores[Score])"
+      },
+      {
+        "name": "Failing Controls Count",
+        "expression": "COUNTROWS(FILTER(ComplianceScores, ComplianceScores[Score] < 0.7))"
+      }
+    ],
+    "relationships": []
+  }
+}
