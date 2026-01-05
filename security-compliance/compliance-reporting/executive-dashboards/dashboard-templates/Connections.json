@@ -1,0 +1,19 @@
+{
+  "connections": [
+    {
+      "name": "ComplianceDataSource",
+      "type": "structured",
+      "connectionDetails": {
+        "protocol": "https",
+        "address": {
+          "server": "YOUR_COMPLIANCE_API_ENDPOINT",
+          "database": null
+        }
+      },
+      "authentication": {
+        "type": "OAuth2",
+        "privacySetting": "Organizational"
+      }
+    }
+  ]
+}
