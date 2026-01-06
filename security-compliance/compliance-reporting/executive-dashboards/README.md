@@ -403,7 +403,7 @@ sequenceDiagram
 ```
 dashboard-config.yaml → Posture Dashboard → Risk Heatmap → Trend Analysis → KPI Tracker
        ↑                                                                        ↓
-       └──────────────────────── Alert Feedback Loop ─────────────────────────┘
+       └──────────────────────── Alert Feedback Loop ───────────────────────────┘
 ```
 
 ---
