@@ -422,7 +422,7 @@ sequenceDiagram
 ```
 audit-config.yaml → Scheduled Audits → Evidence Collection → Continuous Monitoring → Audit Findings
        ↑                                                                                    ↓
-       └────────────────────────────── Feedback Loop ──────────────────────────────────────┘
+       └────────────────────────────── Feedback Loop ───────────────────────────────────────┘
 ```
 
 ---
