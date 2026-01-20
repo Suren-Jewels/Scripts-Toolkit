@@ -1,3 +1,14 @@
+      - name: Debug Working Directory
+        run: |
+          echo "PWD:"
+          pwd
+          echo "List root:"
+          ls -al
+          echo "List cloud-automation:"
+          ls -al cloud-automation || true
+          echo "List rollup folder:"
+          ls -al cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup || true
+
 name: Capacity Trend & Forecast
 
 on:
