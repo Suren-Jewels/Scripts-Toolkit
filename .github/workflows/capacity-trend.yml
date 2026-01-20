@@ -9,10 +9,6 @@ jobs:
   capacity-trend:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: Scripts-Toolkit
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,34 +18,24 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq python3
 
-      - name: Debug Working Directory
-        run: |
-          echo "PWD:"
-          pwd
-          echo "List root:"
-          ls -al
-          echo "List cloud-automation:"
-          ls -al cloud-automation || true
-          echo "List rollup folder:"
-          ls -al cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup || true
-          
       - name: Run Rollup
         run: |
-          ./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh \
-            ./cloud-automation/capacity-management/performance-analysis/capacity-reports/outputs \
+          chmod +x cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh
+          cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh \
+            cloud-automation/capacity-management/performance-analysis/capacity-reports/outputs \
             > rollup.json
 
       - name: Run Trend Analysis
         run: |
-          ROLLUP_INPUT_DIR=./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
-          python3 ./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/capacity-trend-analysis.py \
+          ROLLUP_INPUT_DIR=cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
+          python3 cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/capacity-trend-analysis.py \
           > trend.json
 
       - name: Run Forecast
         run: |
-          ROLLUP_INPUT_DIR=./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
+          ROLLUP_INPUT_DIR=cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
           FORECAST_INTERVALS=12 \
-          python3 ./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/capacity-trend-forecast.py \
+          python3 cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/capacity-trend-forecast.py \
           > forecast.json
 
       - name: Upload Artifacts
