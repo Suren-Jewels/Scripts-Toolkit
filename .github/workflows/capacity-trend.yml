@@ -1,14 +1,3 @@
-      - name: Debug Working Directory
-        run: |
-          echo "PWD:"
-          pwd
-          echo "List root:"
-          ls -al
-          echo "List cloud-automation:"
-          ls -al cloud-automation || true
-          echo "List rollup folder:"
-          ls -al cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup || true
-
 name: Capacity Trend & Forecast
 
 on:
@@ -33,6 +22,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y jq python3
 
+      - name: Debug Working Directory
+        run: |
+          echo "PWD:"
+          pwd
+          echo "List root:"
+          ls -al
+          echo "List cloud-automation:"
+          ls -al cloud-automation || true
+          echo "List rollup folder:"
+          ls -al cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup || true
+          
       - name: Run Rollup
         run: |
           ./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh \
