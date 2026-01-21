@@ -2,7 +2,7 @@ name: Capacity Trend & Forecast
 
 on:
   schedule:
-    - cron: "0 10 * * *"   # 2 AM PST (10 UTC)
+    - cron: "0 10 * * *"
   workflow_dispatch:
 
 jobs:
@@ -20,18 +20,20 @@ jobs:
 
       - name: Run Rollup
         run: |
-          ./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh \
-            ./cloud-automation/capacity-management/performance-analysis/capacity-reports/outputs > rollup.json
+          chmod +x cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh
+          bash cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/multi-cloud-capacity-rollup.sh \
+            cloud-automation/capacity-management/performance-analysis/capacity-reports/outputs \
+            > rollup.json
 
       - name: Run Trend Analysis
         run: |
-          ROLLUP_INPUT_DIR=./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
+          ROLLUP_INPUT_DIR=cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
           python3 cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/capacity-trend-analysis.py \
           > trend.json
 
       - name: Run Forecast
         run: |
-          ROLLUP_INPUT_DIR=./cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
+          ROLLUP_INPUT_DIR=cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/history \
           FORECAST_INTERVALS=12 \
           python3 cloud-automation/capacity-management/performance-analysis/capacity-reports/org-wide-capacity-rollup/capacity-trend-forecast.py \
           > forecast.json
